@@ -7,6 +7,8 @@ export type FontWeight =
   | "bold";
 
 export type BaseExtractedObject = {
+  id: number;
+  
   kind: ObjectKind;
 
   x: number;
@@ -25,21 +27,25 @@ export type ExtractedText =
 
     text: string;
 
-    fontFamily: string;
+    fontFamily?: string;
 
-    fontSize: number;
+    fontSize?: number;
 
-    fontWeight: FontWeight;
+    fontWeight?: FontWeight;
 
-    italic: boolean;
+    italic?: boolean;
 
-    endX: number;
+    endX?: number;
 
-    endY: number;
+    endY?: number;
 
-    transform: number[];
+    transform?: number[];
 
-    direction: "ltr" | "rtl" | "ttb" | "btt";
+    direction?:
+      | "ltr"
+      | "rtl"
+      | "ttb"
+      | "btt";
   };
 
 export type ExtractedImage =
@@ -48,28 +54,16 @@ export type ExtractedImage =
     kind: "image";
   };
 
-export type ExtractedLine = {
-  text: string;
-
-  objects: ExtractedText[];
-
-  x: number;
-  y: number;
-
-  width: number;
-  height: number;
-
-  page: number;
-};
-
-export type ExtractedParagraph = {
-  lines: ExtractedLine[];
-
-  text: string;
-
-  page: number;
-};
-
 export type ExtractedObject =
   | ExtractedText
   | ExtractedImage;
+
+export type OcrExtractedText =
+  BaseExtractedObject &{
+
+  text: string;
+
+  source: "ocr";
+
+  confidence: number;
+}

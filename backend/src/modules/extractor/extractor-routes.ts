@@ -7,8 +7,8 @@ import express, {
 import multer from "multer";
 
 import {
-  extractObjects
-} from "@/modules/extractor";
+  pipeline
+} from "@/pipeline";
 
 const router: Router =
   express.Router();
@@ -38,7 +38,7 @@ router.post(
       }
 
       const objects =
-        await extractObjects(
+        await pipeline(
           req.file.path,
           req.file.mimetype
         );

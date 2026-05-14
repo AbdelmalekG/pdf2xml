@@ -1,63 +1,77 @@
-import sizeOf
-  from "image-size";
+import {
+  pdfImageExtractor
+} from "./pdf-image-extractor";
 
-import fs from "fs";
+import {
+  standaloneImageExtractor
+} from "./standalone-image-extractor";
 
 import {
   type ExtractedImage
-} from "../../extractor.types";
+} from "@modules/extractor";
 
-export function processStandaloneImage(
-  filePath: string
-): ExtractedImage {
+import { type FileType } from "@shared/types";
 
-  const dimensions =
-    sizeOf(
-      fs.readFileSync(filePath)
+export async function extractImage(
+  filePath: string,
+  fileType: FileType
+): Promise<ExtractedImage[]> {
+
+  // STANDALONE IMAGE
+  if (
+    fileType === "image"
+  ) {
+
+    const image =
+      standaloneImageExtractor(
+        filePath
+      );
+
+    return [
+      {
+        kind: "image",
+
+        x: 0,
+        y: 0,
+
+        width:
+          image.width,
+
+        height:
+          image.height,
+
+        page: 1
+      }
+    ];
+  }
+
+  // PDF IMAGES
+  const rawImages =
+    await pdfImageExtractor(
+      filePath
     );
 
-  return {
-    kind: "image",
+  return rawImages.map(
+    ({
+      imageObject,
+      x,
+      y,
+      width,
+      height,
+      page
+    }) => {
 
-    x: 0,
-    y: 0,
+      return {
+        kind: "image",
 
-    width:
-      dimensions.width ?? 0,
+        x,
+        y,
 
-    height:
-      dimensions.height ?? 0,
+        width,
+        height,
 
-    page: 1
-  };
-}
-
-export function processPdfImage(
-  transform: number[],
-  page: number
-): ExtractedImage {
-
-  const [
-    width = 0,
-    ,
-    ,
-    height = 0,
-    x = 0,
-    y = 0
-  ] = transform;
-
-  return {
-    kind: "image",
-
-    x,
-    y,
-
-    width:
-      Math.abs(width),
-
-    height:
-      Math.abs(height),
-
-    page
-  };
+        page
+      };
+    }
+  );
 }

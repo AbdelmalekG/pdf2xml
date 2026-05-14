@@ -1,74 +1,117 @@
 import {
-  type ExtractedText
-} from "@modules/extractor/extractor.types";
+  textExtractor
+} from "./text-extractor";
 
 import {
   detectFontStyle
 } from "./detect-font-style";
 
-export function extractText(
-  item: any,
-  page: number,
-  pageWidth: number
-): ExtractedText {
+import {
+  type ExtractedText
+} from "@modules/extractor";
 
-  const text = item.str;
+import { type FileType } from "@shared/types";
 
-  const transform = item.transform;
+export async function extractText(
+  filePath: string,
+  fileType: FileType
+): Promise<ExtractedText[]> {
 
-  const [
-    ,
-    ,
-    ,
-    ,
-    x,
-    y
-  ] = transform;
+  if (
+    fileType !== "pdf/text" &&
+    fileType !== "pdf/hybrid"
+  ) {
 
-  const width = item.width;
+    return [];
+  }
 
-  const height = item.height;
+  const rawTexts =
+    await textExtractor(
+      filePath
+    );
 
-  const rawFontName = item.fontName ?? "";
+  return rawTexts.map(
+    ({
+      item,
+      page
+    }) => {
 
-  const fontFamily = rawFontName;
+      const text =
+        item.str;
 
-  const { fontWeight, italic } = detectFontStyle(rawFontName);
+      const transform =
+        item.transform;
 
-  const fontSize = Math.abs(item.transform[0]);
+      const [
+        ,
+        ,
+        ,
+        ,
+        x,
+        y
+      ] = transform;
 
-  const endX = x + item.width;
+      const width =
+        item.width;
 
-  const endY = y + item.height;
-  
-  const direction = item.dir ?? "ltr";
+      const height =
+        item.height;
 
-  return {
-    kind: "text",
+      const rawFontName =
+        item.fontName ?? "";
 
-    text,
+      const fontFamily =
+        rawFontName;
 
-    x,
-    y,
+      const {
+        fontWeight,
+        italic
+      } = detectFontStyle(
+        rawFontName
+      );
 
-    width,
-    height,
+      const fontSize =
+        Math.abs(
+          item.transform[0]
+        );
 
-    page,
+      const endX =
+        x + width;
 
-    fontFamily,
+      const endY =
+        y + height;
 
-    fontSize,
+      const direction =
+        item.dir ?? "ltr";
 
-    fontWeight,
+      return {
+        kind: "text",
 
-    italic,
+        text,
 
-    endX,
-    endY,
+        x,
+        y,
 
-    transform,
-    
-    direction
-  };
+        width,
+        height,
+
+        page,
+
+        fontFamily,
+
+        fontSize,
+
+        fontWeight,
+
+        italic,
+
+        endX,
+        endY,
+
+        transform,
+
+        direction
+      };
+    }
+  );
 }
