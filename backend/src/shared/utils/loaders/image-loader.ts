@@ -1,10 +1,12 @@
-import fs from "fs";
+import {
+  loadFile
+} from "./file-loader";
 
 export function loadImage(
   filePath: string
-): Buffer {
+) {
 
-  return fs.readFileSync(
+  return loadFile(
     filePath
   );
 }

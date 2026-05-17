@@ -1,18 +1,22 @@
-import fs from "fs";
-
 import * as pdfjs
   from "pdfjs-dist/legacy/build/pdf.mjs";
+
+import {
+  loadFile
+} from "./file-loader";
 
 export async function loadPdf(
   filePath: string
 ) {
 
-  const data =
-    new Uint8Array(
-      fs.readFileSync(filePath)
+  const buffer =
+    loadFile(
+      filePath
     );
 
   return pdfjs.getDocument({
-    data
+    data: new Uint8Array(
+      buffer
+    )
   }).promise;
 }

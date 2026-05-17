@@ -4,7 +4,7 @@ import {
 
 import {
   type DetectedFile
-} from "./detector.types";
+} from "@shared/types";
 
 export async function detectFileType(
   filePath: string,

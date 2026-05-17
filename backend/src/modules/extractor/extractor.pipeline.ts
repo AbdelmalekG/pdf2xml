@@ -8,7 +8,7 @@ import {
 
 import {
   type DetectedFile
-} from "@modules/detector";
+} from "@shared/types";
 
 export async function extractorPipeline(
   detectedFile: DetectedFile

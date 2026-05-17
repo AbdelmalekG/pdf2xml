@@ -1,6 +1,6 @@
 import {
   loadPdf
-} from "@modules/extractor/loaders";
+} from "@/shared/utils/loaders";
 
 import {
   isTextObject
