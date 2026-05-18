@@ -1,2 +1,4 @@
-export * from "./extractor-service"
+export * from "./extractor.service"
 export { default } from "./extractor-routes"
+export * from "./extractor.types"
+export * from "./processors"

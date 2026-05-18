@@ -47,7 +47,8 @@
     "paths": {
       "@/*": ["*"],
       "@modules/*": ["modules/*"],
-      "@shared/*": ["shared/*"],
+      "@utils/*": ["utils/*"],
+      "@shared/*": ["shared/*"]
     },
 
     "moduleResolution": "bundler"

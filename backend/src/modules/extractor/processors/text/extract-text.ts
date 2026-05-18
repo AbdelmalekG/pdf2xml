@@ -1,74 +1,72 @@
 import {
-  type ExtractedText
-} from "@modules/extractor/extractor.types";
+  imageOcrExtractor,
+  pdfOcrExtractor,
+  textExtractor
+} from "./extractors";
 
 import {
-  detectFontStyle
-} from "./detect-font-style";
+  normalizePdfText,
+  normalizeOcrText
+} from "./normalizers";
 
-export function extractText(
-  item: any,
-  page: number,
-  pageWidth: number
-): ExtractedText {
+import {
+  type ExtractedText
+} from "@modules/extractor";
 
-  const text = item.str;
+import {
+  type FileType
+} from "@shared/types";
 
-  const transform = item.transform;
+export async function extractText(
+  filePath: string,
+  fileType: FileType
+): Promise<ExtractedText[]> {
 
-  const [
-    ,
-    ,
-    ,
-    ,
-    x,
-    y
-  ] = transform;
+  // PDF TEXT
+  if (
+    fileType === "pdf/text" ||
+    fileType === "pdf/hybrid"
+  ) {
 
-  const width = item.width;
+    const rawTexts =
+      await textExtractor(
+        filePath
+      );
 
-  const height = item.height;
+    return normalizePdfText(
+      rawTexts
+    );
+  }
 
-  const rawFontName = item.fontName ?? "";
+  // IMAGE OCR
+  if (
+    fileType === "image"
+  ) {
 
-  const fontFamily = rawFontName;
+    const rawTexts =
+      await imageOcrExtractor(
+        filePath
+      );
 
-  const { fontWeight, italic } = detectFontStyle(rawFontName);
+    return normalizeOcrText(
+      rawTexts
+    );
+  }
 
-  const fontSize = Math.abs(item.transform[0]);
+  // PDF OCR
+  if (
+    fileType === "pdf/scanned"
+  ) {
 
-  const endX = x + item.width;
+    const rawTexts =
+      await pdfOcrExtractor(
+        filePath
+      );
 
-  const endY = y + item.height;
-  
-  const direction = item.dir ?? "ltr";
+    return normalizeOcrText(
+      rawTexts
+    );
+  }
 
-  return {
-    kind: "text",
-
-    text,
-
-    x,
-    y,
-
-    width,
-    height,
-
-    page,
-
-    fontFamily,
-
-    fontSize,
-
-    fontWeight,
-
-    italic,
-
-    endX,
-    endY,
-
-    transform,
-    
-    direction
-  };
+  return [];
 }

@@ -1,63 +1,25 @@
-import sizeOf
-  from "image-size";
+import {
+  pdfImageExtractor
+} from "./extractors";
 
-import fs from "fs";
+import {
+  normalizePdfImage
+} from "./normalizers";
 
 import {
   type ExtractedImage
-} from "../../extractor.types";
+} from "@modules/extractor";
 
-export function processStandaloneImage(
+export async function extractImage(
   filePath: string
-): ExtractedImage {
+): Promise<ExtractedImage[]> {
 
-  const dimensions =
-    sizeOf(
-      fs.readFileSync(filePath)
+  const rawImages =
+    await pdfImageExtractor(
+      filePath
     );
 
-  return {
-    kind: "image",
-
-    x: 0,
-    y: 0,
-
-    width:
-      dimensions.width ?? 0,
-
-    height:
-      dimensions.height ?? 0,
-
-    page: 1
-  };
-}
-
-export function processPdfImage(
-  transform: number[],
-  page: number
-): ExtractedImage {
-
-  const [
-    width = 0,
-    ,
-    ,
-    height = 0,
-    x = 0,
-    y = 0
-  ] = transform;
-
-  return {
-    kind: "image",
-
-    x,
-    y,
-
-    width:
-      Math.abs(width),
-
-    height:
-      Math.abs(height),
-
-    page
-  };
+  return normalizePdfImage(
+    rawImages
+  );
 }
