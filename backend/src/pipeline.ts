@@ -3,10 +3,7 @@ import {
 } from "@modules/detector";
 
 import {
-  extractObjects
-} from "@modules/extractor";
-
-import {
+  extractObjects,
   type ExtractedObject
 } from "@modules/extractor";
 

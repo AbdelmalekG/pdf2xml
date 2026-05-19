@@ -3,7 +3,7 @@ import * as pdfjsLib
 
 import {
   loadFile
-} from "@/shared/utils/loaders";
+} from "@shared/utils/loaders";
 
 export async function hasImage(
   filePath: string

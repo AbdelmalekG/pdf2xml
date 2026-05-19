@@ -1,50 +1,81 @@
+import path from "path";
+
+import fs from "fs/promises";
+
+import {
+  pdf
+} from "pdf-to-img";
+
 import {
   imageOcrExtractor
 } from "./image-ocr-extractor";
-
-import {
-  renderPdfPages
-} from "@/shared/utils/pdf-rendering";
 
 export async function pdfOcrExtractor(
   filePath: string
 ) {
 
-  const pagePaths =
-    await renderPdfPages(
-      filePath
+  const document =
+    await pdf(
+      filePath,
+      {
+        scale: 3
+      }
     );
+
+  const outputDir =
+    path.join(
+      "src",
+      "uploads",
+      path.basename(filePath)
+    );
+
+  await fs.mkdir(
+    outputDir,
+    {
+      recursive: true
+    }
+  );
 
   const rawTexts:
     any[] = [];
 
-  let pageNumber = 1;
+  let page = 1;
 
-  for (
-    const pagePath
-    of pagePaths
+  for await (
+    const imageBuffer
+    of document
   ) {
 
-    const pageTexts =
-      await imageOcrExtractor(
-        pagePath
+    const imagePath =
+      path.join(
+        outputDir,
+        `page-${page}.png`
       );
 
-    for (
-      const pageText
-      of pageTexts
-    ) {
+    await fs.writeFile(
+      imagePath,
+      imageBuffer
+    );
 
+    const result =
+      await imageOcrExtractor(
+        imagePath
+      );
+
+    if (result[0] !== undefined) {
       rawTexts.push({
-
-        ...pageText,
-
-        page:
-          pageNumber
+        result:
+          result[0].result,
+        page
       });
     }
+    else {
+      throw new Error(
+        `OCR failed for page ${page}`
+      );
+    }
 
-    pageNumber++;
+    page++;
   }
 
   return rawTexts;

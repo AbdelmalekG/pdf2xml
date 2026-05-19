@@ -8,62 +8,42 @@ export type FontWeight =
 
 export type BaseExtractedObject = {
   id: number;
-  
   kind: ObjectKind;
-
   x: number;
   y: number;
-
   width: number;
   height: number;
-
   page: number;
 };
 
 export type ExtractedText =
   BaseExtractedObject & {
-
     kind: "text";
-
     text: string;
-
     fontFamily?: string;
-
     fontSize?: number;
-
     fontWeight?: FontWeight;
-
     italic?: boolean;
-
     endX?: number;
-
     endY?: number;
-
     transform?: number[];
-
     direction?:
-      | "ltr"
-      | "rtl"
-      | "ttb"
-      | "btt";
+    | "ltr"
+    | "rtl"
+    | "ttb"
+    | "btt";
   };
 
-export type ExtractedImage =
-  BaseExtractedObject & {
-
-    kind: "image";
-  };
+export type ExtractedImage = BaseExtractedObject & {
+  kind: "image";
+};
 
 export type ExtractedObject =
   | ExtractedText
   | ExtractedImage;
 
-export type OcrExtractedText =
-  BaseExtractedObject &{
-
+export type OcrExtractedText = BaseExtractedObject & {
   text: string;
-
   source: "ocr";
-
   confidence: number;
 }

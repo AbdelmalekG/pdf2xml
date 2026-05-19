@@ -1,48 +1,38 @@
 import {
-  loadPdf
-} from "@/shared/utils/loaders";
+  PDFExtract
+} from "pdf.js-extract";
 
-import {
-  isTextObject
-} from "@modules/extractor/classifiers";
+const pdfExtract =
+  new PDFExtract();
 
 export async function textExtractor(
   filePath: string
 ) {
 
-  const pdf =
-    await loadPdf(filePath);
+  const data =
+    await pdfExtract.extract(
+      filePath,
+      {
+        normalizeWhitespace: true
+      }
+    );
 
   const rawTexts: any[] = [];
 
   for (
-    let pageNumber = 1;
-    pageNumber <= pdf.numPages;
-    pageNumber++
+    const page
+    of data.pages
   ) {
-
-    const page =
-      await pdf.getPage(
-        pageNumber
-      );
-
-    const textContent =
-      await page.getTextContent();
 
     for (
       const item
-      of textContent.items
+      of page.content
     ) {
-
-      if (
-        !isTextObject(item)
-      ) {
-        continue;
-      }
 
       rawTexts.push({
         item,
-        page: pageNumber
+        page:
+          page.info.num
       });
     }
   }

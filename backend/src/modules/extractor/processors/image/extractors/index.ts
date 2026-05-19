@@ -1,1 +1,1 @@
-export * from "./pdf-image-extractor"
+export * from "./pdf-image.extractor";

@@ -1,2 +1,2 @@
-export * from "./normalize-ocr-text"
-export * from "./normalize-pdf-text"
+export * from "./ocr-text-normalizer";
+export * from "./pdf-text-normalizer";

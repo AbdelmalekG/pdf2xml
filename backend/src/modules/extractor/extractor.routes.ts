@@ -37,11 +37,15 @@ router.post(
         });
       }
 
+      console.time("pipeline");
+
       const objects =
         await pipeline(
           req.file.path,
           req.file.mimetype
         );
+
+      console.timeEnd("pipeline");
 
       return res.json({
         objects

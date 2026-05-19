@@ -5,13 +5,9 @@ import {
 } from "./extractors";
 
 import {
-  normalizePdfText,
-  normalizeOcrText
+  normalizeOcrText,
+  normalizePdfText
 } from "./normalizers";
-
-import {
-  type ExtractedText
-} from "@modules/extractor";
 
 import {
   type FileType
@@ -20,7 +16,7 @@ import {
 export async function extractText(
   filePath: string,
   fileType: FileType
-): Promise<ExtractedText[]> {
+) {
 
   // PDF TEXT
   if (

@@ -1,6 +1,12 @@
 import {
-  extractImage,
-  extractText,
+  extractImage
+} from "./image";
+
+import {
+  extractText
+} from "./text";
+
+import {
   type ExtractedObject
 } from "@modules/extractor";
 
@@ -31,7 +37,7 @@ export async function processFile(
     ...texts
   );
 
-  // EMBEDDED IMAGES
+  // IMAGES
   if (
     fileType === "pdf/hybrid"
   ) {

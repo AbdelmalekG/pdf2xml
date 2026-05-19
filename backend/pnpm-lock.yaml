@@ -29,9 +29,12 @@ importers:
       pdf-ts:
         specifier: ^0.0.2
         version: 0.0.2(webpack@4.47.0)
+      pdf.js-extract:
+        specifier: ^1.0.1
+        version: 1.0.1
       pdfjs-dist:
-        specifier: ^5.7.284
-        version: 5.7.284
+        specifier: 5.5.207
+        version: 5.5.207
       sharp:
         specifier: ^0.34.5
         version: 0.34.5
@@ -916,6 +919,9 @@ packages:
     resolution: {integrity: sha512-jnjyiM6eRyZl2H+W8Q/zLMA481hzi0eszAaBUzIVnmYVDBbnLxVNnfu1HgEBvCbL+71FrxMl3E6lpKH7Ge3OXA==}
     engines: {node: '>=0.4', npm: '>=1.2'}
 
+  dommatrix@0.1.1:
+    resolution: {integrity: sha512-45CQT2bjnN9DXF07PXgG7hfQ2r8a6trrupNuTizRzfLHWWujdebAx8Xry0CB5uVBQlQY/m0TE/Whe5nrua+lsQ==}
+
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
     engines: {node: '>= 0.4'}
@@ -1622,16 +1628,20 @@ packages:
   pdf-ts@0.0.2:
     resolution: {integrity: sha512-t9VmdLA+8dvX9t3XulCD1hIEWi0N94p2WpfTPwDcvYCW/NElaK+abHj4q5F4XhJcnxzm6dzlileyaH7qcIbnmQ==}
 
+  pdf.js-extract@1.0.1:
+    resolution: {integrity: sha512-2uWbXGPpYb0qJ/XAuNChlO/IlixtbsaBTm+oxKb7uDne0a7WN60n4jFq9IvsUGoYYDUnUiR/QIcNhA1wXCjWkw==}
+    engines: {node: '>= 20.0.0'}
+
   pdfjs-dist@1.10.100:
     resolution: {integrity: sha512-aCfONGqlBeazYxik3rjd7xaoCKMRYECwZSCC3EC3weqibF2V1Bp/v9WZbF7Lyy5Q6UE4NqOYu126r7U+Le4Uhg==}
+
+  pdfjs-dist@5.5.207:
+    resolution: {integrity: sha512-WMqqw06w1vUt9ZfT0gOFhMf3wHsWhaCrxGrckGs5Cci6ybDW87IvPaOd2pnBwT6BJuP/CzXDZxjFgmSULLdsdw==}
+    engines: {node: '>=20.19.0 || >=22.13.0 || >=24'}
 
   pdfjs-dist@5.6.205:
     resolution: {integrity: sha512-tlUj+2IDa7G1SbvBNN74UHRLJybZDWYom+k6p5KIZl7huBvsA4APi6mKL+zCxd3tLjN5hOOEE9Tv7VdzO88pfg==}
     engines: {node: '>=20.19.0 || >=22.13.0 || >=24'}
-
-  pdfjs-dist@5.7.284:
-    resolution: {integrity: sha512-h4EdYQczmGhbOlqc3PPZwxevn7ApdWPbovAuWXOB/DjIyigSnwfy2oze7c6mRcSr9XgLp3eN3EeL4DyySTPMFw==}
-    engines: {node: '>=22.13.0 || >=24'}
 
   picomatch@2.3.2:
     resolution: {integrity: sha512-V7+vQEJ06Z+c5tSye8S+nHUfI51xoXIXjHQ99cQtKUkQqqO1kO/KCJUfZXuB47h/YBlDhah2H3hdUGXn8ie0oA==}
@@ -3014,6 +3024,8 @@ snapshots:
 
   domain-browser@1.2.0: {}
 
+  dommatrix@0.1.1: {}
+
   dunder-proto@1.0.1:
     dependencies:
       call-bind-apply-helpers: 1.0.2
@@ -3840,6 +3852,10 @@ snapshots:
     transitivePeerDependencies:
       - webpack
 
+  pdf.js-extract@1.0.1:
+    dependencies:
+      dommatrix: 0.1.1
+
   pdfjs-dist@1.10.100(webpack@4.47.0):
     dependencies:
       node-ensure: 0.0.0
@@ -3847,14 +3863,15 @@ snapshots:
     transitivePeerDependencies:
       - webpack
 
-  pdfjs-dist@5.6.205:
+  pdfjs-dist@5.5.207:
     optionalDependencies:
       '@napi-rs/canvas': 0.1.100
       node-readable-to-web-readable-stream: 0.4.2
 
-  pdfjs-dist@5.7.284:
+  pdfjs-dist@5.6.205:
     optionalDependencies:
       '@napi-rs/canvas': 0.1.100
+      node-readable-to-web-readable-stream: 0.4.2
 
   picomatch@2.3.2:
     optional: true

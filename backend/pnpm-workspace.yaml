@@ -1,5 +1,5 @@
 allowBuilds:
-  canvas: true
-  esbuild: true
-  sharp: true
-  tesseract.js: true
+  canvas: set this to true or false
+  esbuild: set this to true or false
+  sharp: set this to true or false
+  tesseract.js: set this to true or false

@@ -1,1 +1,1 @@
-export * from "./normalize-pdf-image"
+export * from "./pdf-image-normalizer";

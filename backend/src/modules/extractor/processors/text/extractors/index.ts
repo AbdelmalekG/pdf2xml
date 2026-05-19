@@ -1,2 +1,2 @@
-export * from "./text-extractor"
-export * from "./ocr"
+export * from "./text-extractor";
+export * from "./ocr";
