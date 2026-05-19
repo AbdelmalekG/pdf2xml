@@ -1,6 +1,6 @@
 import {
   type FontWeight
-} from "@modules/extractor/extractor.types";
+} from "@/modules/extractor/extractor.types";
 
 export function detectFontStyle(
   rawFontName: string

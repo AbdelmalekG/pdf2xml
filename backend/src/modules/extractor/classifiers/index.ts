@@ -1,2 +1,2 @@
-export * from "./text.classifier";
-export * from "./image.classifier";
+export * from "./text-classifier";
+export * from "./image-classifier";

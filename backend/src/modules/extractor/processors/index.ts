@@ -1,2 +1,3 @@
-export * from "./text/extract-text";
-export * from "./image/extract-image";
+export * from "./text";
+export * from "./image";
+export * from "./processor";

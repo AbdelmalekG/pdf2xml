@@ -1,17 +1,29 @@
-import fs from "fs";
-import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf.mjs';
+import * as pdfjsLib
+  from "pdfjs-dist/legacy/build/pdf.mjs";
+
+import {
+  loadFile
+} from "@shared/utils/loaders";
 
 export async function hasImage(
   filePath: string
 ): Promise<boolean> {
 
-  const buffer = fs.readFileSync(filePath);
+  const buffer =
+    loadFile(
+      filePath
+    );
 
-  const loadingTask = pdfjsLib.getDocument({
-    data: new Uint8Array(buffer)
-  });
+  const loadingTask =
+    pdfjsLib.getDocument({
+      data:
+        new Uint8Array(
+          buffer
+        )
+    });
 
-  const pdf = await loadingTask.promise;
+  const pdf =
+    await loadingTask.promise;
 
   for (
     let pageNumber = 1;
@@ -19,16 +31,27 @@ export async function hasImage(
     pageNumber++
   ) {
 
-    const page = await pdf.getPage(pageNumber);
+    const page =
+      await pdf.getPage(
+        pageNumber
+      );
 
-    const operators = await page.getOperatorList();
+    const operators =
+      await page.getOperatorList();
 
-    for (const fn of operators.fnArray) {
+    for (
+      const fn
+      of operators.fnArray
+    ) {
 
       if (
-        fn === pdfjsLib.OPS.paintImageXObject ||
-        fn === pdfjsLib.OPS.paintInlineImageXObject
+        fn ===
+          pdfjsLib.OPS.paintImageXObject ||
+
+        fn ===
+          pdfjsLib.OPS.paintInlineImageXObject
       ) {
+
         return true;
       }
     }
