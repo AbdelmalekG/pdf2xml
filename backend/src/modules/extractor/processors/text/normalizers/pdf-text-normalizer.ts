@@ -28,6 +28,12 @@ export function normalizePdfText(
       y:
         item.y,
 
+      pdfX: 
+        item.transform[4],
+
+      pdfY:
+        item.transform[5],
+
       width:
         item.width,
 

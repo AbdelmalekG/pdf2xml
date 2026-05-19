@@ -10,6 +10,9 @@ export function fileValidator(
     case "image/jpeg":
       return ".jpeg";
 
+    case "image/jpg":
+      return ".jpg";
+
     case "application/pdf":
       return ".pdf";
 

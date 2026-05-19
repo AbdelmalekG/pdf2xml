@@ -19,8 +19,10 @@ export function normalizePdfImage(
 
       kind: "image",
 
-      x: 0,
-      y: 0,
+      x: 
+        image.x,
+      y: 
+        image.y,
 
       width:
         image.width,

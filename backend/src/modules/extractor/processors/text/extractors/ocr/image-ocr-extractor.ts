@@ -1,14 +1,14 @@
-import Tesseract
-  from "tesseract.js";
+import {
+  tesseractWorker
+} from "@shared/lib";
 
 export async function imageOcrExtractor(
   filePath: string
 ) {
 
   const result =
-    await Tesseract.recognize(
-      filePath,
-      "fra"
+    await tesseractWorker.recognize(
+      filePath
     );
 
   return [
