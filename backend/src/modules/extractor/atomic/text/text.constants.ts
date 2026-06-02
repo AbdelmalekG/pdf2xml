@@ -1,0 +1,1 @@
+export const TEXT_Y_THRESHOLD = 1.5;

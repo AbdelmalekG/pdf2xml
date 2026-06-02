@@ -37,7 +37,9 @@ router.post(
         });
       }
 
-      console.time("pipeline");
+      console.time(
+        "pipeline"
+      );
 
       const objects =
         await pipeline(
@@ -45,9 +47,11 @@ router.post(
           req.file.mimetype
         );
 
-      console.timeEnd("pipeline");
+      console.timeEnd(
+        "pipeline"
+      );
 
-      return res.json({
+      return res.status(200).json({
         objects
       });
 
@@ -55,10 +59,13 @@ router.post(
 
       console.error(error);
 
-      if (error instanceof Error) {
+      if (
+        error instanceof Error
+      ) {
 
         return res.status(400).json({
-          error: error.message
+          error:
+            error.message
         });
       }
 

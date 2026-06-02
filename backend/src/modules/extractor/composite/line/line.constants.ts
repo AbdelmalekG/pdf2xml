@@ -1,0 +1,1 @@
+export const LINE_Y_THRESHOLD = 6;

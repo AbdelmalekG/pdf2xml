@@ -1,49 +1,81 @@
-export type ObjectKind =
-  | "text"
-  | "image";
+import { type TextDirection } from "./atomic";
 
-export type FontWeight =
-  | "normal"
-  | "bold";
+export const ExtractedObjectKind = {
+  word: "word",
+  sentence: "sentence",
+  line: "line",
+  image: "image"
+} as const;
+
+export type ExtractedObjectKind =
+  (typeof ExtractedObjectKind)[keyof typeof ExtractedObjectKind];
 
 export type BaseExtractedObject = {
-  id: number;
-  kind: ObjectKind;
+
+  id: string;
+
+  kind: ExtractedObjectKind;
+
   x: number;
   y: number;
+
   width: number;
   height: number;
+
   page: number;
 };
 
-export type ExtractedText =
+export type ExtractedWord =
   BaseExtractedObject & {
-    kind: "text";
+
+    kind: typeof ExtractedObjectKind.word;
+
     text: string;
-    fontFamily?: string;
-    fontSize?: number;
-    fontWeight?: FontWeight;
-    italic?: boolean;
-    endX?: number;
-    endY?: number;
+
+    direction?: TextDirection;
+
     transform?: number[];
-    direction?:
-    | "ltr"
-    | "rtl"
-    | "ttb"
-    | "btt";
+
+    endX?: number;
+
+    endY?: number;
   };
 
-export type ExtractedImage = BaseExtractedObject & {
-  kind: "image";
-};
+export type ExtractedSentence =
+  BaseExtractedObject & {
+
+    kind: typeof ExtractedObjectKind.sentence;
+
+    text: string;
+
+    words: ExtractedWord[];
+
+    endX: number;
+    endY: number;
+  };
+
+export type ExtractedLine =
+  BaseExtractedObject & {
+
+    kind: typeof ExtractedObjectKind.line;
+
+    children: Array<
+      ExtractedWord |
+      ExtractedSentence
+    >;
+
+    endX: number;
+    endY: number;
+  };
+
+export type ExtractedImage =
+  BaseExtractedObject & {
+
+    kind: typeof ExtractedObjectKind.image;
+  };
 
 export type ExtractedObject =
-  | ExtractedText
+  | ExtractedWord
+  | ExtractedSentence
+  | ExtractedLine
   | ExtractedImage;
-
-export type OcrExtractedText = BaseExtractedObject & {
-  text: string;
-  source: "ocr";
-  confidence: number;
-}

@@ -1,20 +1,20 @@
 import {
-  processFile
-} from "./processors";
+  processExtractor
+} from "./extractor.processor";
 
-import {
-  type ExtractedObject
+import type {
+  ExtractedObject
 } from "./extractor.types";
 
-import {
-  type DetectedFile
+import type {
+  DetectedFile
 } from "@shared/types";
 
 export async function extractorPipeline(
   detectedFile: DetectedFile
 ): Promise<ExtractedObject[]> {
 
-  return processFile(
+  return processExtractor(
     detectedFile
   );
 }
