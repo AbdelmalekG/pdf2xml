@@ -4,7 +4,8 @@ export const ExtractedObjectKind = {
   word: "word",
   sentence: "sentence",
   line: "line",
-  image: "image"
+  image: "image",
+  vector: "vector"
 } as const;
 
 export type ExtractedObjectKind =
@@ -74,8 +75,22 @@ export type ExtractedImage =
     kind: typeof ExtractedObjectKind.image;
   };
 
+export type ExtractedVector =
+  BaseExtractedObject & {
+
+    kind:
+      typeof ExtractedObjectKind.vector;
+
+    x1: number;
+    y1: number;
+
+    x2: number;
+    y2: number;
+  };
+
 export type ExtractedObject =
   | ExtractedWord
   | ExtractedSentence
   | ExtractedLine
+  | ExtractedVector
   | ExtractedImage;

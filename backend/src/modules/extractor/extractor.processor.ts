@@ -21,6 +21,7 @@ import {
 import type {
   RawImageNode
 } from "./atomic/image/image.types";
+import type { RawVectorNode } from "./atomic/vector";
 
 export async function processExtractor(
   detectedFile: DetectedFile
@@ -50,6 +51,14 @@ export async function processExtractor(
         node.kind === "image"
     );
 
+  const vectorSurvivors =
+  atomicNodes.filter(
+    (
+      node
+    ): node is RawVectorNode =>
+      node.kind === "vector"
+  );
+
   const finalNodes = [
 
     ...compositeResult.wordSurvivors,
@@ -58,7 +67,9 @@ export async function processExtractor(
 
     ...compositeResult.lines,
 
-    ...imageSurvivors
+    ...imageSurvivors,
+
+    ...vectorSurvivors
   ];
 
   return normalizeObjects(

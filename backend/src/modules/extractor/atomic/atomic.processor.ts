@@ -1,10 +1,14 @@
 import {
   extractText
-} from "./text/extract-text";
+} from "./text";
 
 import {
   extractImage
-} from "./image/extract-image";
+} from "./image";
+
+import {
+  extractVector
+} from "./vector";
 
 export async function processAtomic(
   document: any
@@ -20,8 +24,14 @@ export async function processAtomic(
       document
     );
 
+  const vectors =
+    await extractVector(
+      document
+    );
+
   return [
     ...texts,
-    ...images
+    ...images,
+    ...vectors
   ];
 }

@@ -1,6 +1,7 @@
 export const AtomicNodeKind = {
   word: "word",
-  image: "image"
+  image: "image",
+  vector: "vector"
 } as const;
 
 export type AtomicNodeKind =
@@ -24,6 +25,3 @@ export type BaseAtomicNode = {
 
   consumedBy?: string;
 };
-
-export type AtomicNode =
-  BaseAtomicNode;

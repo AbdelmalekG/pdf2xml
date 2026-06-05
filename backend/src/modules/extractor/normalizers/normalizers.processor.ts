@@ -7,6 +7,14 @@ import type {
 } from "../atomic/text";
 
 import type {
+  RawVectorNode
+} from "../atomic/vector";
+
+import {
+  normalizeVector
+} from "./vector-normalizer";
+
+import type {
   LineNode
 } from "../composite/line";
 
@@ -41,6 +49,7 @@ import {
 type NormalizableNode =
   | RawWordNode
   | RawImageNode
+  | RawVectorNode
   | SentenceNode
   | LineNode;
 
@@ -86,7 +95,15 @@ function normalizeObject(
     );
   }
 
-  return normalizeImage(
+  if (
+    node.kind === "image"
+  ) {
+    return normalizeImage(
+      node
+    );
+  }
+
+  return normalizeVector(
     node
   );
 }
