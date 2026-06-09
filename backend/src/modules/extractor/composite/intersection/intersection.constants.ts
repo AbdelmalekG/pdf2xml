@@ -1,0 +1,1 @@
+export const INTERSECTION_TOLERANCE = 2;

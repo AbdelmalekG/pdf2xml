@@ -7,15 +7,17 @@ import {
 } from "./line";
 
 import type {
-  AtomicNode
-} from "@modules/extractor/atomic/atomic.types";
+  BaseAtomicNode
+} from "@modules/extractor/atomic";
 
 import type {
   RawWordNode
 } from "@modules/extractor/atomic/text";
+import { buildIntersections } from "./intersection";
+import type { RawVectorNode } from "../atomic/vector";
 
 export async function processComposite(
-  atomicNodes: AtomicNode[]
+  atomicNodes: BaseAtomicNode[]
 ) {
 
   const words =
@@ -26,6 +28,30 @@ export async function processComposite(
 
         node.kind === "word"
     );
+
+  const vectors =
+    atomicNodes.filter(
+      (
+        node
+      ): node is RawVectorNode =>
+
+        node.kind === "vector"
+    );
+
+  const intersections =
+    buildIntersections(
+      vectors
+    );
+
+  // console.log(
+  //   "INTERSECTIONS:",
+  //   intersections
+  // );
+
+  console.log(
+    "Total intersections:",
+    intersections.length
+  )
 
   const sentenceResult =
     buildSentences(

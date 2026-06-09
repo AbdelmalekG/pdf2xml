@@ -16,7 +16,7 @@ export function isPageSizedShape(
   );
 }
 
-export function isHorizontalLine(
+export function isHorizontalVector(
   width: number,
   height: number
 ): boolean {
@@ -27,7 +27,7 @@ export function isHorizontalLine(
   );
 }
 
-export function isVerticalLine(
+export function isVerticalVector(
   width: number,
   height: number
 ): boolean {

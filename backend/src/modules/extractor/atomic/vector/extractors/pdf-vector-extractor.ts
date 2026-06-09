@@ -10,9 +10,9 @@ import type {
 } from "../vector.types";
 
 import {
-  isHorizontalLine,
+  isHorizontalVector,
   isPageSizedShape,
-  isVerticalLine
+  isVerticalVector
 } from "../vector.utils";
 
 import { IGNORED_VECTOR_COMMANDS } from "../vector.constants";
@@ -116,7 +116,7 @@ export async function extractPdfVectors(
       }
 
       if (
-        isHorizontalLine(
+        isHorizontalVector(
           width,
           height
         )
@@ -150,7 +150,7 @@ export async function extractPdfVectors(
       }
 
       if (
-        isVerticalLine(
+        isVerticalVector(
           width,
           height
         )
