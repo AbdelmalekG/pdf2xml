@@ -1,27 +1,32 @@
 import {
   readDocument
-} from "./reader/reader.processor";
+} from "./reader";
 
 import {
   processAtomic
-} from "./atomic/atomic.processor";
+} from "./atomic";
 
 import {
   processComposite
-} from "./composite/composite.processor";
+} from "./composite";
+
+import {
+  processStructural
+} from "./structural";
 
 import {
   normalizeObjects
-} from "./normalizers/normalizers.processor";
+} from "./normalizers";
 
 import {
   type DetectedFile
 } from "@shared/types";
 
 import type {
-  RawImageNode
-} from "./atomic/image/image.types";
-import type { RawVectorNode } from "./atomic/vector";
+  RawWordNode,
+  RawImageNode,
+  RawVectorNode
+} from "./atomic";
 
 export async function processExtractor(
   detectedFile: DetectedFile
@@ -37,12 +42,15 @@ export async function processExtractor(
       document
     );
 
-  const compositeResult =
-    await processComposite(
-      atomicNodes
+  const words =
+    atomicNodes.filter(
+      (
+        node
+      ): node is RawWordNode =>
+        node.kind === "word"
     );
 
-  const imageSurvivors =
+  const images =
     atomicNodes.filter(
       (
         node
@@ -51,25 +59,62 @@ export async function processExtractor(
         node.kind === "image"
     );
 
-  const vectorSurvivors =
-  atomicNodes.filter(
-    (
-      node
-    ): node is RawVectorNode =>
-      node.kind === "vector"
-  );
+  const vectors =
+    atomicNodes.filter(
+      (
+        node
+      ): node is RawVectorNode =>
+        node.kind === "vector"
+    );
+
+  const compositeResult =
+    await processComposite(
+      atomicNodes
+    );
+
+  const structuralResult =
+    await processStructural(
+
+      words,
+
+      compositeResult.sentences,
+
+      images,
+
+      compositeResult.intersections
+    );
+
+  const standaloneWords =
+    words.filter(
+      word => !word.consumed
+    );
+
+  const standaloneSentences =
+    compositeResult.sentences.filter(
+      sentence => !sentence.consumed
+    );
+
+  const standaloneImages =
+    images.filter(
+      image => !image.consumed
+    );
+
+  const standaloneVectors =
+    vectors.filter(
+      vector => !vector.consumed
+    );
 
   const finalNodes = [
 
-    ...compositeResult.wordSurvivors,
+    ...standaloneWords,
 
-    ...compositeResult.sentenceSurvivors,
+    ...standaloneSentences,
 
-    ...compositeResult.lines,
+    ...structuralResult.cells,
 
-    ...imageSurvivors,
+    ...standaloneImages,
 
-    ...vectorSurvivors
+    ...standaloneVectors
   ];
 
   return normalizeObjects(

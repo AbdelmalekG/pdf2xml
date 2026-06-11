@@ -8,4 +8,8 @@ export type RawImageNode =
     kind: "image";
 
     buffer: Buffer;
+
+    endX: number;
+
+    endY: number;
   };

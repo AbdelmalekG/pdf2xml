@@ -42,16 +42,6 @@ export function buildIntersections(
         )
     );
 
-  console.log(
-    "Total horizontals:",
-    horizontals.length
-  )
-
-  console.log(
-    "Total verticals:",
-    verticals.length
-  )
-
   let id = 0;
 
   for (

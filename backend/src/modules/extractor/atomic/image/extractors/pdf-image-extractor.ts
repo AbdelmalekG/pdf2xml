@@ -55,6 +55,9 @@ export async function extractPdfImages(
         x: 0,
         y: 0,
 
+        endX: 0,
+        endY: 0,
+
         width: 0,
         height: 0,
 

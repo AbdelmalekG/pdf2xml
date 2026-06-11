@@ -24,10 +24,7 @@ import {
 
 export function buildSentences(
   words: RawWordNode[]
-): {
-  sentences: SentenceNode[];
-  wordSurvivors: RawWordNode[];
-} {
+): SentenceNode[] {
 
   const sorted =
     sortWords(
@@ -44,8 +41,8 @@ export function buildSentences(
   const sentences:
     SentenceNode[] = [];
 
-  const wordSurvivors:
-    RawWordNode[] = [];
+  let counter = 0;
+  let sentenceId: string = "";
 
   for (
     const group
@@ -55,24 +52,32 @@ export function buildSentences(
     if (
       group.length === 1
     ) {
-
-      wordSurvivors.push(
-        group[0]!
-      );
-
       continue;
+    }
+
+    sentenceId = `sentence-${counter++}`;
+
+    for (
+      const word
+      of group
+    ) {
+
+
+
+      word.consumed =
+        true;
+
+      word.consumedBy =
+        sentenceId;
     }
 
     sentences.push(
       createSentenceNode(
-        `sentence-${sentences.length}`,
+        sentenceId,
         group
       )
     );
   }
 
-  return {
-    sentences,
-    wordSurvivors
-  };
+  return sentences;
 }

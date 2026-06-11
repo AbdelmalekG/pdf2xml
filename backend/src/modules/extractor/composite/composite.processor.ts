@@ -3,18 +3,14 @@ import {
 } from "./sentence";
 
 import {
-  buildLines
-} from "./line";
+  buildIntersections
+} from "./intersection";
 
 import type {
-  BaseAtomicNode
+  BaseAtomicNode,
+  RawWordNode,
+  RawVectorNode
 } from "@modules/extractor/atomic";
-
-import type {
-  RawWordNode
-} from "@modules/extractor/atomic/text";
-import { buildIntersections } from "./intersection";
-import type { RawVectorNode } from "../atomic/vector";
 
 export async function processComposite(
   atomicNodes: BaseAtomicNode[]
@@ -43,41 +39,18 @@ export async function processComposite(
       vectors
     );
 
-  // console.log(
-  //   "INTERSECTIONS:",
-  //   intersections
-  // );
-
   console.log(
     "Total intersections:",
     intersections.length
-  )
+  );
 
-  const sentenceResult =
+  const sentences =
     buildSentences(
       words
     );
 
-  const lineResult =
-    buildLines(
-      [
-        ...sentenceResult.sentences,
-        ...sentenceResult.wordSurvivors
-      ]
-    );
-
   return {
-
-    wordSurvivors:
-      lineResult.wordSurvivors,
-
-    sentences:
-      sentenceResult.sentences,
-
-    sentenceSurvivors:
-      lineResult.sentenceSurvivors,
-
-    lines:
-      lineResult.lines
+    sentences,
+    intersections
   };
 }

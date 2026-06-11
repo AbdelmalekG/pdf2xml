@@ -46,11 +46,20 @@ import {
   normalizeWord
 } from "./word-normalizer";
 
+import type {
+  CellNode
+} from "../structural";
+
+import {
+  normalizeCell
+} from "./cell-normalizer";
+
 type NormalizableNode =
   | RawWordNode
   | RawImageNode
   | RawVectorNode
   | SentenceNode
+  | CellNode
   | LineNode;
 
 export function normalizeObjects(
@@ -103,7 +112,15 @@ function normalizeObject(
     );
   }
 
-  return normalizeVector(
+  if (
+    node.kind === "vector"
+  ) {
+    return normalizeVector(
+      node
+    );
+  }
+
+  return normalizeCell(
     node
   );
 }

@@ -24,6 +24,12 @@ export function normalizeImage(
     y:
       image.y,
 
+    endX:
+      image.endX,
+
+    endY:
+      image.endY,
+
     width:
       image.width,
 

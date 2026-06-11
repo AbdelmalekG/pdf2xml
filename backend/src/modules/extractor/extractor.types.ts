@@ -5,7 +5,8 @@ export const ExtractedObjectKind = {
   sentence: "sentence",
   line: "line",
   image: "image",
-  vector: "vector"
+  vector: "vector",
+  cell: "cell"
 } as const;
 
 export type ExtractedObjectKind =
@@ -73,6 +74,9 @@ export type ExtractedImage =
   BaseExtractedObject & {
 
     kind: typeof ExtractedObjectKind.image;
+
+    endX: number;
+    endY: number;
   };
 
 export type ExtractedVector =
@@ -88,9 +92,26 @@ export type ExtractedVector =
     y2: number;
   };
 
+export type ExtractedCell =
+  BaseExtractedObject & {
+
+    kind:
+      typeof ExtractedObjectKind.cell;
+
+    endX: number;
+    endY: number;
+
+    children: Array<
+      | ExtractedWord
+      | ExtractedSentence
+      | ExtractedImage
+    >;
+  };
+
 export type ExtractedObject =
   | ExtractedWord
   | ExtractedSentence
   | ExtractedLine
   | ExtractedVector
-  | ExtractedImage;
+  | ExtractedImage
+  | ExtractedCell;

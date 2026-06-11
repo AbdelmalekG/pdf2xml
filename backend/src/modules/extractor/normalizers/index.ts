@@ -5,3 +5,5 @@ export * from "./sentence-normalizer";
 export * from "./image-normalizer";
 export * from "./object-sorter";
 export * from "./normalizers.processor";
+export * from "./cell-normalizer";
+export * from "./object-sorter";
