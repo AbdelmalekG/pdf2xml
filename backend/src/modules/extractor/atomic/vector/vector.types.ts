@@ -12,6 +12,8 @@ export type RawVectorNode =
     kind:
       typeof AtomicNodeKind.vector;
 
+    flippedY: boolean;
+
     x1: number;
     y1: number;
 

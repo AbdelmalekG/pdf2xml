@@ -12,7 +12,15 @@ import type {
 
 export async function extractObjects(
   detectedFile: DetectedFile
-): Promise<ExtractedObject[]> {
+): Promise<{
+  pages: {
+    id: string;
+    number: number;
+    width: number;
+    height: number;
+    content: ExtractedObject[];
+  }[];
+}> {
 
   return extractorPipeline(
     detectedFile

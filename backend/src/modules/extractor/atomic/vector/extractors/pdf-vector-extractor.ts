@@ -12,7 +12,8 @@ import type {
 import {
   isHorizontalVector,
   isPageSizedShape,
-  isVerticalVector
+  isVerticalVector,
+  multiply
 } from "../vector.utils";
 
 import { IGNORED_VECTOR_COMMANDS } from "../vector.constants";
@@ -42,6 +43,10 @@ export async function extractPdfVectors(
         scale: 1
       });
 
+    let ctm = [1, 0, 0, 1, 0, 0];
+
+    const stack: number[][] = [];
+
     for (
       let i = 0;
       i < operatorList.fnArray.length;
@@ -49,14 +54,45 @@ export async function extractPdfVectors(
     ) {
 
       const fn =
-        operatorList.fnArray[i];
+        operatorList.fnArray[i]!;
+
+      if (fn === OPS.save) {
+
+        stack.push([...ctm]);
+
+        continue;
+      }
+
+      if (fn === OPS.restore) {
+
+        const previous = stack.pop();
+
+        if (previous) {
+          ctm = previous;
+        }
+
+        continue;
+      }
+
+      if (fn === OPS.transform) {
+
+        const matrix =
+          operatorList.argsArray[i] as number[];
+
+        ctm =
+          multiply(
+            ctm,
+            matrix
+          );
+
+        continue;
+      }
 
       if (
         fn !== OPS.constructPath
       ) {
         continue;
       }
-
       const args =
         operatorList.argsArray[i];
 
@@ -82,17 +118,36 @@ export async function extractPdfVectors(
         continue;
       }
 
+      const scaleX =
+        Math.sqrt(
+          ctm[0]! * ctm[0]! +
+          ctm[1]! * ctm[1]!
+        );
+
+      const scaleY =
+        Math.sqrt(
+          ctm[2]! * ctm[2]! +
+          ctm[3]! * ctm[3]!
+        );
+
       const [
-        left,
-        bottom,
-        right,
-        top
-      ] = Array.from(bbox) as [
-        number,
-        number,
-        number,
-        number
-      ];
+        rawLeft,
+        rawBottom,
+        rawRight,
+        rawTop
+      ] = Array.from(bbox) as [number, number, number, number];
+
+      const left =
+        rawLeft * scaleX;
+
+      const right =
+        rawRight * scaleX;
+
+      const bottom =
+        rawBottom * scaleY;
+
+      const top =
+        rawTop * scaleY;
 
       const width =
         Math.abs(
@@ -103,6 +158,8 @@ export async function extractPdfVectors(
         Math.abs(
           top - bottom
         );
+
+      const flippedY = ctm[3]! > 0;
 
       if (
         isPageSizedShape(
@@ -121,7 +178,6 @@ export async function extractPdfVectors(
           height
         )
       ) {
-
         vectors.push({
 
           id:
@@ -135,6 +191,8 @@ export async function extractPdfVectors(
 
           x: left,
           y: bottom,
+
+          flippedY: flippedY,
 
           width,
           height,
@@ -169,6 +227,8 @@ export async function extractPdfVectors(
 
           x: left,
           y: bottom,
+
+          flippedY: flippedY,
 
           width,
           height,

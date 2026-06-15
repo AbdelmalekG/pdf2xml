@@ -37,23 +37,12 @@ router.post(
         });
       }
 
-      console.time(
-        "pipeline"
-      );
-
-      const objects =
+      return res.status(200).json(
         await pipeline(
           req.file.path,
           req.file.mimetype
-        );
-
-      console.timeEnd(
-        "pipeline"
+        )
       );
-
-      return res.status(200).json({
-        objects
-      });
 
     } catch (error) {
 

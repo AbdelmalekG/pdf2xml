@@ -1,6 +1,6 @@
-import { 
+import {
   PAGE_SHAPE_THRESHOLD,
-  VECTOR_LINE_THICKNESS 
+  VECTOR_LINE_THICKNESS
 } from "./vector.constants";
 
 export function isPageSizedShape(
@@ -36,4 +36,21 @@ export function isVerticalVector(
     width <= VECTOR_LINE_THICKNESS &&
     height > VECTOR_LINE_THICKNESS
   );
+}
+
+export function multiply(
+  m1: number[],
+  m2: number[]
+): number[] {
+
+  return [
+    m1[0]! * m2[0]! + m1[2]! * m2[1]!,
+    m1[1]! * m2[0]! + m1[3]! * m2[1]!,
+
+    m1[0]! * m2[2]! + m1[2]! * m2[3]!,
+    m1[1]! * m2[2]! + m1[3]! * m2[3]!,
+
+    m1[0]! * m2[4]! + m1[2]! * m2[5]! + m1[4]!,
+    m1[1]! * m2[4]! + m1[3]! * m2[5]! + m1[5]!
+  ];
 }

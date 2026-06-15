@@ -28,9 +28,21 @@ import type {
   RawVectorNode
 } from "./atomic";
 
+import type {
+  ExtractedObject
+} from "./extractor.types";
+
 export async function processExtractor(
   detectedFile: DetectedFile
-) {
+): Promise<{
+  pages: {
+    id: string;
+    number: number;
+    width: number;
+    height: number;
+    content: ExtractedObject[];
+  }[];
+}> {
 
   const document =
     await readDocument(
@@ -117,7 +129,48 @@ export async function processExtractor(
     ...standaloneVectors
   ];
 
-  return normalizeObjects(
-    finalNodes
-  );
+  const normalizedObjects =
+    normalizeObjects(
+      finalNodes
+    );
+
+  const pages =
+    document.pages.map(
+      ({
+        pageNumber,
+        page
+      }) => {
+
+        const viewport =
+          page.getViewport({
+            scale: 1
+          });
+
+        return {
+
+          id:
+            `page-${pageNumber - 1}`,
+
+          number:
+            pageNumber,
+
+          width:
+            viewport.width,
+
+          height:
+            viewport.height,
+
+          content:
+            normalizedObjects.filter(
+              object =>
+                object.page ===
+                pageNumber
+            )
+        };
+      }
+    );
+
+  return {
+    pages
+  };
 }

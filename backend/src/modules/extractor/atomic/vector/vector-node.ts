@@ -16,6 +16,8 @@ type CreateVectorNodeParams = {
   x2: number;
   y2: number;
 
+  flippedY: boolean;
+
   page: number;
 };
 
@@ -25,6 +27,7 @@ export function createVectorNode({
   y1,
   x2,
   y2,
+  flippedY,
   page
 }: CreateVectorNodeParams): RawVectorNode {
 
@@ -53,6 +56,8 @@ export function createVectorNode({
     y1,
 
     x2,
-    y2
+    y2,
+
+    flippedY
   };
 }

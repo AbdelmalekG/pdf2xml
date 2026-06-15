@@ -90,6 +90,8 @@ export type ExtractedVector =
 
     x2: number;
     y2: number;
+
+    flippedY: boolean;
   };
 
 export type ExtractedCell =

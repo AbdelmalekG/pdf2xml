@@ -43,6 +43,9 @@ export function normalizeVector(
       vector.x2,
 
     y2:
-      vector.y2
+      vector.y2,
+
+    flippedY:
+      vector.flippedY
   };
 }
