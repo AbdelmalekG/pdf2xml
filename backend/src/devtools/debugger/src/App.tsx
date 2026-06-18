@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { extract } from "./services/extract";
+import { analyze } from "./services/analyze";
 
 import { Sidebar } from "./components/Sidebar";
 
@@ -18,7 +18,7 @@ export default function App() {
       return;
     }
 
-    const response = await extract(file);
+    const response = await analyze(file);
 
     setPages(response.pages);
   }

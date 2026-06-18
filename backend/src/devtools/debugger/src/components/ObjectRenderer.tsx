@@ -1,7 +1,10 @@
-import type { ExtractedVector, ExtractedObject } from "../../../extractor.types";
+import type { ExtractedVector, ExtractedObject } from "../../../../modules/extractor/extractor.types";
+import type { AnalyzedObject } from "../../../../modules/analyzer/analyzer.types";
 
 type Props = {
-  object: ExtractedObject;
+  object: 
+    | ExtractedObject
+    | AnalyzedObject;
 
   highlightedId: string | null;
 
