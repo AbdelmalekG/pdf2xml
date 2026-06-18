@@ -1,5 +1,5 @@
-import type { 
-  CellContentNode 
+import type {
+  CellContentNode
 } from "./cell.types";
 
 import type {

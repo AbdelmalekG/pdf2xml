@@ -3,12 +3,12 @@ import type {
 } from "../structural";
 
 import type {
-  ExtractedCell
-} from "../extractor.types";
+  Cell
+} from "../analyzer.types";
 
 export function normalizeCell(
   cell: CellNode
-): ExtractedCell {
+): Cell {
 
   return {
 

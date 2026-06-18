@@ -1,7 +1,7 @@
 import type {
   RawImageNode,
   RawWordNode
-} from "../atomic";
+} from "../../extractor/atomic";
 
 import type {
   SentenceNode

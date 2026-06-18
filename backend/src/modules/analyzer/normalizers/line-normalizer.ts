@@ -3,8 +3,8 @@ import type {
 } from "../composite/line";
 
 import type {
-  ExtractedLine
-} from "../extractor.types";
+  Line
+} from "../analyzer.types";
 
 import {
   normalizeSentence
@@ -12,11 +12,11 @@ import {
 
 import {
   normalizeWord
-} from "./word-normalizer";
+} from "../../extractor/normalizers/word-normalizer";
 
 export function normalizeLine(
   line: LineNode
-): ExtractedLine {
+): Line {
 
   return {
 

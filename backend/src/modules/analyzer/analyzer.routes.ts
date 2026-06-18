@@ -12,7 +12,11 @@ import {
 
 import {
   extractObjects
-} from "./extractor.service";
+} from "@modules/extractor";
+
+import {
+  analyzeObjects
+} from "./analyzer.service";
 
 const router: Router =
   express.Router();
@@ -22,7 +26,7 @@ const upload = multer({
 });
 
 router.post(
-  "/extract",
+  "/analyze",
 
   upload.single("file"),
 
@@ -47,13 +51,18 @@ router.post(
           req.file.mimetype
         );
 
-      const document =
+      const extractedDocument =
         await extractObjects(
           detectedFile
         );
 
+      const analyzedDocument =
+        await analyzeObjects(
+          extractedDocument
+        );
+
       return res.status(200).json(
-        document
+        analyzedDocument
       );
 
     } catch (error) {

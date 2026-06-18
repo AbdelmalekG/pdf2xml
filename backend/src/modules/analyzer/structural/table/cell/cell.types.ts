@@ -1,6 +1,6 @@
 import type {
   CompositeNodeKind,
-} from "@modules/extractor";
+} from "@modules/analyzer/composite";
 
 import type {
   RawWordNode,
@@ -9,7 +9,7 @@ import type {
 
 import type {
   SentenceNode
-} from "@modules/extractor/composite/sentence";
+} from "@/modules/analyzer/composite/sentence";
 
 export type CellContentNode =
   | RawWordNode

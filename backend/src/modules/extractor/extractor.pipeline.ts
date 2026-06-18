@@ -1,28 +1,79 @@
 import {
-  processExtractor
-} from "./extractor.processor";
+  readDocument
+} from "./reader";
 
-import type {
-  ExtractedObject
-} from "./extractor.types";
+import {
+  processAtomic
+} from "./atomic";
+
+import {
+  normalizeObjects
+} from "./normalizers";
 
 import type {
   DetectedFile
 } from "@shared/types";
 
-export async function extractorPipeline(
-  detectedFile: DetectedFile
-): Promise<{
-  pages: {
-    id: string;
-    number: number;
-    width: number;
-    height: number;
-    content: ExtractedObject[];
-  }[];
-}> {
+import type {
+  ExtractedDocument
+} from "./extractor.types";
 
-  return processExtractor(
-    detectedFile
-  );
+export async function runExtraction(
+  detectedFile: DetectedFile
+): Promise<ExtractedDocument> {
+
+  const document =
+    await readDocument(
+      detectedFile
+    );
+
+  const atomicNodes =
+    await processAtomic(
+      document
+    );
+
+  const normalizedExtractedObjects =
+    normalizeObjects(
+      atomicNodes
+    );
+
+  const pages =
+    document.pages.map(
+      ({
+        pageNumber,
+        page
+      }) => {
+
+        const viewport =
+          page.getViewport({
+            scale: 1
+          });
+
+        return {
+
+          id:
+            `page-${pageNumber - 1}`,
+
+          number:
+            pageNumber,
+
+          width:
+            viewport.width,
+
+          height:
+            viewport.height,
+
+          content:
+            normalizedExtractedObjects.filter(
+              object =>
+                object.page ===
+                pageNumber
+            )
+        };
+      }
+    );
+
+  return {
+    pages
+  };
 }

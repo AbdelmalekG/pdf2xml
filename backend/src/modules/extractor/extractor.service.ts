@@ -1,9 +1,9 @@
 import {
-  extractorPipeline
+  runExtraction
 } from "./extractor.pipeline";
 
 import type {
-  ExtractedObject
+  ExtractedDocument
 } from "./extractor.types";
 
 import type {
@@ -12,17 +12,9 @@ import type {
 
 export async function extractObjects(
   detectedFile: DetectedFile
-): Promise<{
-  pages: {
-    id: string;
-    number: number;
-    width: number;
-    height: number;
-    content: ExtractedObject[];
-  }[];
-}> {
+): Promise<ExtractedDocument> {
 
-  return extractorPipeline(
+  return runExtraction(
     detectedFile
   );
 }

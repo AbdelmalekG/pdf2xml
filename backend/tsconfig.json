@@ -47,6 +47,9 @@
     "paths": {
       "@/*": ["*"],
       "@modules/*": ["modules/*"],
+      "@detector/*": ["modules/detector/*"],
+      "@extractor/*": ["modules/extractor/*"],
+      "@analyzer/*": ["modules/analyzer/*"],
       "@utils/*": ["utils/*"],
       "@shared/*": ["shared/*"]
     },

@@ -3,16 +3,16 @@ import type {
 } from "../composite/sentence";
 
 import type {
-  ExtractedSentence
-} from "../extractor.types";
+  Sentence
+} from "../analyzer.types";
 
 import {
   normalizeWord
-} from "./word-normalizer";
+} from "@modules/extractor/normalizers";
 
 export function normalizeSentence(
   sentence: SentenceNode
-): ExtractedSentence {
+): Sentence {
 
   return {
 

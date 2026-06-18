@@ -3,24 +3,34 @@ import {
 } from "@modules/detector";
 
 import {
-  extractObjects,
-  type ExtractedObject
+  extractObjects
 } from "@modules/extractor";
+
+import {
+  analyzeObjects,
+  type AnalyzedDocument
+} from "@modules/analyzer";
 
 export async function pipeline(
   filePath: string,
   mimeType: string
-): Promise<ExtractedObject[]> {
+): Promise<AnalyzedDocument> {
 
-  // DETECTOR
-  const detectedFile =
+  const detected =
     await detectFileType(
       filePath,
       mimeType
     );
 
-  // EXTRACTOR
-  return extractObjects(
-    detectedFile
-  );
+  const extracted =
+    await extractObjects(
+      detected
+    );
+
+  const analyzed =
+    await analyzeObjects(
+      extracted
+    );
+
+  return analyzed;
 }

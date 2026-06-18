@@ -2,11 +2,8 @@ import { type TextDirection } from "./atomic";
 
 export const ExtractedObjectKind = {
   word: "word",
-  sentence: "sentence",
-  line: "line",
   image: "image",
   vector: "vector",
-  cell: "cell"
 } as const;
 
 export type ExtractedObjectKind =
@@ -43,33 +40,6 @@ export type ExtractedWord =
     endY?: number;
   };
 
-export type ExtractedSentence =
-  BaseExtractedObject & {
-
-    kind: typeof ExtractedObjectKind.sentence;
-
-    text: string;
-
-    words: ExtractedWord[];
-
-    endX: number;
-    endY: number;
-  };
-
-export type ExtractedLine =
-  BaseExtractedObject & {
-
-    kind: typeof ExtractedObjectKind.line;
-
-    children: Array<
-      ExtractedWord |
-      ExtractedSentence
-    >;
-
-    endX: number;
-    endY: number;
-  };
-
 export type ExtractedImage =
   BaseExtractedObject & {
 
@@ -94,26 +64,24 @@ export type ExtractedVector =
     flippedY: boolean;
   };
 
-export type ExtractedCell =
-  BaseExtractedObject & {
-
-    kind:
-      typeof ExtractedObjectKind.cell;
-
-    endX: number;
-    endY: number;
-
-    children: Array<
-      | ExtractedWord
-      | ExtractedSentence
-      | ExtractedImage
-    >;
-  };
-
 export type ExtractedObject =
   | ExtractedWord
-  | ExtractedSentence
-  | ExtractedLine
   | ExtractedVector
   | ExtractedImage
-  | ExtractedCell;
+
+export type ExtractedPage = {
+
+  id: string;
+
+  number: number;
+
+  width: number;
+  height: number;
+
+  content: ExtractedObject[];
+};
+
+export type ExtractedDocument = {
+
+  pages: ExtractedPage[];
+};

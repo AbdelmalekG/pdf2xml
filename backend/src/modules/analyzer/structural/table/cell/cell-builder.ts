@@ -5,7 +5,7 @@ import type {
 
 import type {
   IntersectionNode
-} from "@modules/extractor/composite";
+} from "@/modules/analyzer/composite";
 
 import {
   createCellNode
@@ -137,6 +137,12 @@ export function buildCells(
                 topLeft.y
               )
           );
+
+        if (
+          children.length === 0
+        ) {
+          continue;
+        }
 
         cellId = `cell-${counter++}`;
 
