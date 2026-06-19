@@ -1,7 +1,6 @@
-export * from "./extract-text";
-export * from "./text.types";
-export * from "./text-extractor";
-// export * from "./extractors";
-export * from "./text-node";
-export * from "./text.utils";
-export * from "./text.constants";
+export * from "./extract-word";
+export * from "./word.types";
+export * from "./extractors";
+export * from "./word-node";
+export * from "./word.utils";
+export * from "./word.constants";

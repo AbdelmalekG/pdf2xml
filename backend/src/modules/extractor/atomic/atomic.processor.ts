@@ -1,5 +1,5 @@
 import {
-  extractText
+  extractWord
 } from "./text";
 
 import {
@@ -15,7 +15,7 @@ export async function processAtomic(
 ) {
 
   const texts =
-    await extractText(
+    await extractWord(
       document
     );
 

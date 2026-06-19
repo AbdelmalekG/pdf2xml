@@ -1,12 +1,12 @@
 import type {
-  RawVectorNode
+  RawVectorLineNode
 } from "@modules/extractor/atomic/vector";
 
 import { INTERSECTION_TOLERANCE } from "./intersection.constants";
 
 export function intersects(
-  vertical: RawVectorNode,
-  horizontal: RawVectorNode
+  vertical: RawVectorLineNode,
+  horizontal: RawVectorLineNode
 ): boolean {
 
   const x =

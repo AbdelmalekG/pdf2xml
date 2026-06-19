@@ -37,7 +37,8 @@ export function normalizeTextItems(
           transform[4];
 
         const y =
-          transform[5];
+          transform[5] -
+          raw.pageYOffset;
 
         const width =
           item.width;
@@ -166,9 +167,9 @@ function splitTextSegments(
   while (
     (
       match =
-        pattern.exec(
-          text
-        )
+      pattern.exec(
+        text
+      )
     )
   ) {
 

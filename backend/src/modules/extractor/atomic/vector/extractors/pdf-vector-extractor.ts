@@ -13,7 +13,9 @@ import {
   isHorizontalVector,
   isPageSizedShape,
   isVerticalVector,
-  multiply
+  multiply,
+  extractBezierSegments,
+  transformPoint
 } from "../vector.utils";
 
 import { IGNORED_VECTOR_COMMANDS } from "../vector.constants";
@@ -42,6 +44,9 @@ export async function extractPdfVectors(
       context.page.getViewport({
         scale: 1
       });
+
+    const pageYOffset =
+      context.page.view[1]!;
 
     let ctm = [1, 0, 0, 1, 0, 0];
 
@@ -137,17 +142,33 @@ export async function extractPdfVectors(
         rawTop
       ] = Array.from(bbox) as [number, number, number, number];
 
+      const p1 =
+        transformPoint(
+          rawLeft,
+          rawBottom,
+          ctm
+        );
+
+      const p2 =
+        transformPoint(
+          rawRight,
+          rawTop,
+          ctm
+        );
+
       const left =
-        rawLeft * scaleX;
+        Math.min(p1.x, p2.x);
 
       const right =
-        rawRight * scaleX;
+        Math.max(p1.x, p2.x);
 
       const bottom =
-        rawBottom * scaleY;
+        Math.min(p1.y, p2.y) -
+        pageYOffset;
 
       const top =
-        rawTop * scaleY;
+        Math.max(p1.y, p2.y) -
+        pageYOffset;
 
       const width =
         Math.abs(
@@ -173,6 +194,118 @@ export async function extractPdfVectors(
       }
 
       if (
+        command === 28 &&
+        !isHorizontalVector(
+          width,
+          height
+        ) &&
+        !isVerticalVector(
+          width,
+          height
+        )
+      ) {
+
+        const path =
+          args?.[1]?.[0];
+
+        if (
+          !(path instanceof Float32Array)
+        ) {
+          continue;
+        }
+
+        const curve =
+          extractBezierSegments(path);
+
+        if (
+          curve.segments.length === 0
+        ) {
+          continue;
+        }
+
+        const start =
+          transformPoint(
+            curve.startX,
+            curve.startY,
+            ctm
+          );
+
+        start.y -= pageYOffset;
+
+        const segments =
+          curve.segments
+            .map(segment => {
+
+              const cp1 =
+                transformPoint(
+                  segment.cp1x,
+                  segment.cp1y,
+                  ctm
+                );
+
+              const cp2 =
+                transformPoint(
+                  segment.cp2x,
+                  segment.cp2y,
+                  ctm
+                );
+
+              const end =
+                transformPoint(
+                  segment.x,
+                  segment.y,
+                  ctm
+                );
+
+              cp1.y -= pageYOffset;
+              cp2.y -= pageYOffset;
+              end.y -= pageYOffset;
+
+              return {
+
+                cp1x: cp1.x,
+                cp1y: cp1.y,
+
+                cp2x: cp2.x,
+                cp2y: cp2.y,
+
+                x: end.x,
+                y: end.y
+              };
+            });
+
+        vectors.push({
+
+          id:
+            `curve-${id++}`,
+
+          kind:
+            "vector",
+
+          vectorKind:
+            "curve",
+
+          page:
+            context.pageNumber,
+
+          x: left,
+          y: bottom,
+
+          width,
+          height,
+
+          flippedY,
+
+          startX: start.x,
+          startY: start.y,
+
+          segments
+        });
+
+        continue;
+      }
+
+      if (
         isHorizontalVector(
           width,
           height
@@ -185,6 +318,9 @@ export async function extractPdfVectors(
 
           kind:
             "vector",
+
+          vectorKind:
+            "line",
 
           page:
             context.pageNumber,
@@ -221,6 +357,9 @@ export async function extractPdfVectors(
 
           kind:
             "vector",
+
+          vectorKind:
+            "line",
 
           page:
             context.pageNumber,

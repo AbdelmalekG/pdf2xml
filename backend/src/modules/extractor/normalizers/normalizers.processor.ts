@@ -7,7 +7,7 @@ import type {
 } from "../atomic/image";
 
 import type {
-  RawVectorNode
+  RawVectorLineNode
 } from "../atomic/vector";
 
 import type {
@@ -33,7 +33,7 @@ import {
 type NormalizableNode =
   | RawWordNode
   | RawImageNode
-  | RawVectorNode;
+  | RawVectorLineNode;
   
 export function normalizeObjects(
   nodes: NormalizableNode[]

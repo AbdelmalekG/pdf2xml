@@ -3,19 +3,19 @@ import type {
 } from "@modules/extractor/reader";
 
 import {
-  extractRawTextItems
-} from "./text-extractor";
+  extractRawWordItems
+} from "./extractors/pdf-word-extractor";
 
 import {
   normalizeTextItems
 } from "@modules/extractor/normalizers";
 
-export async function extractText(
+export async function extractWord(
   document: PdfDocumentContext
 ) {
 
   const rawItems =
-    await extractRawTextItems(
+    await extractRawWordItems(
       document
     );
 

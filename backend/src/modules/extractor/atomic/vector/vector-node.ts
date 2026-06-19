@@ -2,8 +2,9 @@ import {
   AtomicNodeKind
 } from "../atomic.types";
 
-import type {
-  RawVectorNode
+import {
+  VectorNodeKind,
+  type RawVectorLineNode
 } from "./vector.types";
 
 type CreateVectorNodeParams = {
@@ -29,7 +30,7 @@ export function createVectorNode({
   y2,
   flippedY,
   page
-}: CreateVectorNodeParams): RawVectorNode {
+}: CreateVectorNodeParams): RawVectorLineNode {
 
   return {
 
@@ -37,6 +38,9 @@ export function createVectorNode({
 
     kind:
       AtomicNodeKind.vector,
+
+    vectorKind:
+      VectorNodeKind.line,
 
     x:
       Math.min(x1, x2),

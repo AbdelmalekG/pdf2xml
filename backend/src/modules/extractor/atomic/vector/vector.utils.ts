@@ -54,3 +54,80 @@ export function multiply(
     m1[1]! * m2[4]! + m1[3]! * m2[5]! + m1[5]!
   ];
 }
+
+export function extractBezierSegments(
+  path: Float32Array
+) {
+
+  const segments = [];
+
+  let startX = 0;
+  let startY = 0;
+
+  let i = 0;
+
+  while (i < path.length) {
+
+    const op = path[i];
+
+    // moveTo
+    if (op === 0) {
+
+      startX = path[i + 1]!;
+
+      startY = path[i + 2]!;
+
+      i += 3;
+
+      continue;
+    }
+
+    // curveTo
+    if (op === 2) {
+
+      segments.push({
+
+        cp1x: path[i + 1]!,
+        cp1y: path[i + 2]!,
+
+        cp2x: path[i + 3]!,
+        cp2y: path[i + 4]!,
+
+        x: path[i + 5]!,
+        y: path[i + 6]!
+      });
+
+      i += 7;
+
+      continue;
+    }
+
+    i++;
+  }
+
+  return {
+    startX,
+    startY,
+    segments
+  };
+}
+
+export function transformPoint(
+  x: number,
+  y: number,
+  m: number[]
+) {
+
+  return {
+
+    x:
+      m[0]! * x +
+      m[2]! * y +
+      m[4]!,
+
+    y:
+      m[1]! * x +
+      m[3]! * y +
+      m[5]!
+  };
+}

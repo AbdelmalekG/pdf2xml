@@ -1,7 +1,7 @@
 import type {
   RawWordNode,
   TextDirection
-} from "./text.types";
+} from "./word.types";
 
 import {
   AtomicNodeKind
@@ -10,7 +10,7 @@ import {
 import {
   calculateEndX,
   calculateEndY
-} from "./text.utils";
+} from "./word.utils";
 
 type CreateWordNodeParams = {
 

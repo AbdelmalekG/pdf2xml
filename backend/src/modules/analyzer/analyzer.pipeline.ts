@@ -17,7 +17,7 @@ import type {
 import type {
   RawWordNode,
   RawImageNode,
-  RawVectorNode
+  RawVectorLineNode
 } from "@extractor/atomic";
 
 import type {
@@ -54,7 +54,7 @@ export async function runAnalysis(
             page.content.filter(
               (
                 object
-              ): object is RawVectorNode =>
+              ): object is RawVectorLineNode =>
                 object.kind === "vector"
             );
 

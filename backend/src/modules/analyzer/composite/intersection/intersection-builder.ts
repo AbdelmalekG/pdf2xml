@@ -1,5 +1,5 @@
 import type {
-  RawVectorNode
+  RawVectorLineNode
 } from "@modules/extractor/atomic/vector";
 
 import type {
@@ -17,7 +17,7 @@ import {
 
 export function buildIntersections(
 
-  vectors: RawVectorNode[]
+  vectors: RawVectorLineNode[]
 
 ): IntersectionNode[] {
 

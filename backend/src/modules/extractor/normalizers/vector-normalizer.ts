@@ -10,42 +10,71 @@ export function normalizeVector(
   vector: RawVectorNode
 ): ExtractedVector {
 
+  if (vector.vectorKind === "line") {
+    return {
+
+      id:
+        String(vector.id),
+
+      kind:
+        "vector",
+
+      vectorKind: "line",
+
+      x:
+        vector.x,
+
+      y:
+        vector.y,
+
+      width:
+        vector.width,
+
+      height:
+        vector.height,
+
+      page:
+        vector.page,
+
+      x1:
+        vector.x1,
+
+      y1:
+        vector.y1,
+
+      x2:
+        vector.x2,
+
+      y2:
+        vector.y2,
+
+      flippedY:
+        vector.flippedY
+    }
+  }
+
   return {
 
-    id:
-      String(vector.id),
+    id: String(vector.id),
 
-    kind:
-      "vector",
+    kind: "vector",
 
-    x:
-      vector.x,
+    vectorKind: "curve",
 
-    y:
-      vector.y,
+    x: vector.x,
+    y: vector.y,
 
-    width:
-      vector.width,
+    width: vector.width,
+    height: vector.height,
 
-    height:
-      vector.height,
+    page: vector.page,
 
-    page:
-      vector.page,
+    flippedY: vector.flippedY,
 
-    x1:
-      vector.x1,
+    startX: vector.startX,
+    startY: vector.startY,
 
-    y1:
-      vector.y1,
-
-    x2:
-      vector.x2,
-
-    y2:
-      vector.y2,
-
-    flippedY:
-      vector.flippedY
+    segments: vector.segments
   };
-}
+
+};

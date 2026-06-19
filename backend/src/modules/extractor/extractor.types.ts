@@ -49,11 +49,12 @@ export type ExtractedImage =
     endY: number;
   };
 
-export type ExtractedVector =
+export type ExtractedLineVector =
   BaseExtractedObject & {
 
-    kind:
-      typeof ExtractedObjectKind.vector;
+    kind: "vector";
+
+    vectorKind: "line";
 
     x1: number;
     y1: number;
@@ -64,10 +65,41 @@ export type ExtractedVector =
     flippedY: boolean;
   };
 
+export type BezierSegment = {
+
+  cp1x: number;
+  cp1y: number;
+
+  cp2x: number;
+  cp2y: number;
+
+  x: number;
+  y: number;
+};
+
+export type ExtractedCurveVector =
+  BaseExtractedObject & {
+
+    kind: "vector";
+
+    vectorKind: "curve";
+
+    flippedY: boolean;
+
+    startX: number;
+    startY: number;
+
+    segments: BezierSegment[];
+  };
+
+export type ExtractedVector =
+  | ExtractedLineVector
+  | ExtractedCurveVector;
+
 export type ExtractedObject =
   | ExtractedWord
   | ExtractedVector
-  | ExtractedImage
+  | ExtractedImage;
 
 export type ExtractedPage = {
 

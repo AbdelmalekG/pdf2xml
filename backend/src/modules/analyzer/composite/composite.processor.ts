@@ -9,7 +9,7 @@ import {
 import type {
   BaseAtomicNode,
   RawWordNode,
-  RawVectorNode
+  RawVectorLineNode
 } from "@modules/extractor/atomic";
 
 export async function processComposite(
@@ -29,7 +29,7 @@ export async function processComposite(
     atomicNodes.filter(
       (
         node
-      ): node is RawVectorNode =>
+      ): node is RawVectorLineNode =>
 
         node.kind === "vector"
     );
