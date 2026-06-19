@@ -6,6 +6,10 @@ import {
   buildIntersections
 } from "./intersection";
 
+import {
+  mergeVectors
+} from "./merged-vector";
+
 import type {
   BaseAtomicNode,
   RawWordNode,
@@ -34,15 +38,15 @@ export async function processComposite(
         node.kind === "vector"
     );
 
-  const intersections =
-    buildIntersections(
+  const mergedVectors =
+    mergeVectors(
       vectors
     );
 
-  console.log(
-    "Total intersections:",
-    intersections.length
-  );
+  const intersections =
+    buildIntersections(
+      mergedVectors
+    );
 
   const sentences =
     buildSentences(

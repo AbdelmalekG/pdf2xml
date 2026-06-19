@@ -1,0 +1,3 @@
+export const VECTOR_GAP_TOLERANCE = 3;
+
+export const VECTOR_ALIGNMENT_TOLERANCE = 1;
