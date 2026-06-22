@@ -10,6 +10,8 @@ export interface IntersectionNode {
 
   y: number;
 
+  page: number;
+
   horizontalId: string;
 
   verticalId: string;

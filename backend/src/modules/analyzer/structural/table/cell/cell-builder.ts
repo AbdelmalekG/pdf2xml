@@ -138,12 +138,6 @@ export function buildCells(
               )
           );
 
-        if (
-          children.length === 0
-        ) {
-          continue;
-        }
-
         cellId = `cell-${counter++}`;
 
         for (
@@ -169,6 +163,8 @@ export function buildCells(
 
             topRight.x,
             topLeft.y,
+
+            topLeft.page,
 
             children
           )

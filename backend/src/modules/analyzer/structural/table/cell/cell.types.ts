@@ -9,7 +9,7 @@ import type {
 
 import type {
   SentenceNode
-} from "@/modules/analyzer/composite/sentence";
+} from "@modules/analyzer/composite/sentence";
 
 export type CellContentNode =
   | RawWordNode

@@ -16,13 +16,12 @@ export function createCellNode(
   endX: number,
   endY: number,
 
+  page: number,
+
   children:
     CellContentNode[]
 
 ): CellNode {
-
-  const first =
-    children[0]!;
 
   return {
 
@@ -45,7 +44,6 @@ export function createCellNode(
 
     children,
 
-    page:
-      first.page
+    page
   };
 }

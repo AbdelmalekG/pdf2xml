@@ -77,6 +77,9 @@ export function buildIntersections(
         y:
           horizontal.y1!,
 
+        page:
+          vertical.page,
+
         horizontalId:
           horizontal.id,
 
