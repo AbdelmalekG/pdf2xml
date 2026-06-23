@@ -3,7 +3,7 @@ export const CompositeNodeKind = {
   line: "line",
   paragraph: "paragraph",
   intersection: "intersection",
-  cell: "cell"
+  box: "box"
 } as const;
 
 export type CompositeNodeKind =

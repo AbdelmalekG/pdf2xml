@@ -3,8 +3,8 @@ import type {
 } from "../composite";
 
 import type {
-  CellNode
-} from "../structural";
+  BoxNode
+} from "../composite";
 
 import type {
   AnalyzedObject
@@ -15,8 +15,8 @@ import {
 } from "./sentence-normalizer";
 
 import {
-  normalizeCell
-} from "./cell-normalizer";
+  normalizeBox
+} from "./box-normalizer";
 
 import {
   sortObjects
@@ -24,7 +24,7 @@ import {
 
 type NormalizableNode =
   | SentenceNode
-  | CellNode;
+  | BoxNode;
   
 export function normalizeObjects(
   nodes: NormalizableNode[]
@@ -52,7 +52,7 @@ function normalizeObject(
     );
   }
 
-  return normalizeCell(
+  return normalizeBox(
     node
   );
 }

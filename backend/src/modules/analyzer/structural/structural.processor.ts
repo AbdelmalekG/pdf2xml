@@ -12,8 +12,8 @@ import type {
 } from "../composite/intersection";
 
 import {
-  buildCells
-} from "./table/cell";
+  buildBoxes
+} from "../composite/box";
 
 export function processStructural(
 
@@ -31,8 +31,8 @@ export function processStructural(
 
 ) {
 
-  const cells =
-    buildCells(
+  const boxes =
+    buildBoxes(
       intersections,
       [
         ...words,
@@ -43,6 +43,6 @@ export function processStructural(
     );
 
   return {
-    cells
+    boxes
   };
 }

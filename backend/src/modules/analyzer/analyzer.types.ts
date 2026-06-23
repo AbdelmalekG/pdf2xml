@@ -7,7 +7,7 @@ import type {
 export const AnalyzedObjectKind = {
   sentence: "sentence",
   line: "line",
-  cell: "cell"
+  box: "box"
 } as const;
 
 export type AnalyzedObjectKind =
@@ -55,11 +55,11 @@ export type Line =
     endY: number;
   };
 
-export type Cell =
+export type Box =
   BaseAnalyzedObject & {
 
     kind:
-    typeof AnalyzedObjectKind.cell;
+    typeof AnalyzedObjectKind.box;
 
     endX: number;
     endY: number;
@@ -76,7 +76,7 @@ export type AnalyzedObject =
   | ExtractedVector
   | ExtractedImage
   | Sentence
-  | Cell;
+  | Box;
 
 export type AnalyzedPage = {
   id: string;

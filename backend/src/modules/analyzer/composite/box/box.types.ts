@@ -11,16 +11,16 @@ import type {
   SentenceNode
 } from "@modules/analyzer/composite/sentence";
 
-export type CellContentNode =
+export type BoxContentNode =
   | RawWordNode
   | RawImageNode
   | SentenceNode;
 
-export interface CellNode {
+export interface BoxNode {
 
   id: string;
 
-  kind: typeof CompositeNodeKind.cell;
+  kind: typeof CompositeNodeKind.box;
 
   x: number;
   y: number;
@@ -32,7 +32,7 @@ export interface CellNode {
   height: number;
 
   children:
-    CellContentNode[];
+    BoxContentNode[];
 
   page: number;
 }

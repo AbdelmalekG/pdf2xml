@@ -3,10 +3,6 @@ import {
 } from "./composite";
 
 import {
-  processStructural
-} from "./structural";
-
-import {
   normalizeObjects
 } from "./normalizers";
 
@@ -65,18 +61,6 @@ export async function runAnalysis(
               ...vectors
             ]);
 
-          const structuralResult =
-            await processStructural(
-
-              words,
-
-              compositeResult.sentences,
-
-              images,
-
-              compositeResult.intersections
-            );
-
           const standaloneWords =
             words.filter(
               word => !word.consumed
@@ -97,23 +81,10 @@ export async function runAnalysis(
               vector => !vector.consumed
             );
 
-          const analyzedNodes = [
-
-            ...standaloneWords,
-
-            ...standaloneSentences,
-
-            ...structuralResult.cells,
-
-            ...standaloneImages,
-
-            ...standaloneVectors
-          ];
-
           const normalizedAnalyzedObjects =
             normalizeObjects([
               ...standaloneSentences,
-              ...structuralResult.cells
+              ...compositeResult.boxes
             ]);
 
           return {

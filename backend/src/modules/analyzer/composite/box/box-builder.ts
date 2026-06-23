@@ -1,37 +1,37 @@
 import type {
-  CellContentNode,
-  CellNode
-} from "./cell.types";
+  BoxContentNode,
+  BoxNode
+} from "./box.types";
 
 import type {
   IntersectionNode
 } from "@/modules/analyzer/composite";
 
 import {
-  createCellNode
-} from "./cell-node";
+  createBoxNode
+} from "./box-node";
 
 import {
   sameX,
   sameY,
   countRectangleIntersections,
-  isInsideCell
-} from "./cell.utils";
+  isInsideBox
+} from "./box.utils";
 
-export function buildCells(
+export function buildBoxes(
 
   intersections:
     IntersectionNode[],
 
-  objects: CellContentNode[]
+  objects: BoxContentNode[]
 
-): CellNode[] {
+): BoxNode[] {
 
-  const cells:
-    CellNode[] = [];
+  const boxes:
+    BoxNode[] = [];
 
   let counter = 0;
-  let cellId: string = "";
+  let boxId: string = "";
 
   for (
     const topLeft
@@ -126,7 +126,7 @@ export function buildCells(
 
               !object.consumed &&
 
-              isInsideCell(
+              isInsideBox(
 
                 object,
 
@@ -138,7 +138,7 @@ export function buildCells(
               )
           );
 
-        cellId = `cell-${counter++}`;
+        boxId = `box-${counter++}`;
 
         for (
           const child
@@ -149,14 +149,14 @@ export function buildCells(
             true;
 
           child.consumedBy =
-            cellId;
+            boxId;
         }
 
-        cells.push(
+        boxes.push(
 
-          createCellNode(
+          createBoxNode(
 
-            cellId,
+            boxId,
 
             topLeft.x,
             bottomLeft.y,
@@ -173,5 +173,5 @@ export function buildCells(
     }
   }
 
-  return cells;
+  return boxes;
 }

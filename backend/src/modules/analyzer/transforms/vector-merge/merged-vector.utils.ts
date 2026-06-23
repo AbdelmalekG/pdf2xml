@@ -31,7 +31,10 @@ export function canMergeHorizontal(
   const gap =
     right.x1 - left.x2;
 
-  return gap <= VECTOR_GAP_TOLERANCE;
+  return (
+    gap >= 0 &&
+    gap <= VECTOR_GAP_TOLERANCE
+  );
 }
 
 export function canMergeVertical(
@@ -52,5 +55,8 @@ export function canMergeVertical(
   const gap =
     bottom.y1 - top.y2;
 
-  return gap <= VECTOR_GAP_TOLERANCE;
+  return (
+    gap >= 0 &&
+    gap <= VECTOR_GAP_TOLERANCE
+  );
 }

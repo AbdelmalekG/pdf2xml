@@ -1,11 +1,11 @@
 import type {
   IntersectionNode
-} from "../../../composite/intersection";
+} from "../intersection";
 
 import {
   CELL_TOLERANCE
-} from "./cell.constants";
-import type { CellContentNode } from "./cell.types";
+} from "./box.constants";
+import type { BoxContentNode } from "./box.types";
 
 export function sameX(
   a: number,
@@ -55,9 +55,9 @@ export function countRectangleIntersections(
   ).length;
 }
 
-export function isInsideCell(
+export function isInsideBox(
 
-  object: CellContentNode,
+  object: BoxContentNode,
 
   left: number,
   right: number,

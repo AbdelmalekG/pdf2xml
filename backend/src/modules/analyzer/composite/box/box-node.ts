@@ -1,12 +1,9 @@
 import type {
-  CellContentNode
-} from "./cell.types";
+  BoxContentNode,
+  BoxNode
+} from "./box.types";
 
-import type {
-  CellNode
-} from "./cell.types";
-
-export function createCellNode(
+export function createBoxNode(
 
   id: string,
 
@@ -19,16 +16,16 @@ export function createCellNode(
   page: number,
 
   children:
-    CellContentNode[]
+    BoxContentNode[]
 
-): CellNode {
+): BoxNode {
 
   return {
 
     id,
 
     kind:
-      "cell",
+      "box",
 
     x,
     y,
