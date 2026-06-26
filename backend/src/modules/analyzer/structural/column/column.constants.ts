@@ -1,0 +1,3 @@
+export const COLUMN_ALIGNMENT_TOLERANCE = 2;
+
+export const COLUMN_GAP_TOLERANCE = 2;

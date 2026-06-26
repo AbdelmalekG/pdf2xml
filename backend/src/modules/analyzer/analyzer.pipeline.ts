@@ -3,6 +3,10 @@ import {
 } from "./composite";
 
 import {
+  processStructural
+} from "./structural";
+
+import {
   normalizeObjects
 } from "./normalizers";
 
@@ -61,6 +65,11 @@ export async function runAnalysis(
               ...vectors
             ]);
 
+          const structuralResult =
+            processStructural(
+              compositeResult.boxes
+            );
+
           const standaloneWords =
             words.filter(
               word => !word.consumed
@@ -69,6 +78,21 @@ export async function runAnalysis(
           const standaloneSentences =
             compositeResult.sentences.filter(
               sentence => !sentence.consumed
+            );
+
+          const standaloneBoxes =
+            compositeResult.boxes.filter(
+              box => !box.consumed
+            );
+
+          const standaloneRows =
+            structuralResult.rows.filter(
+              row => !row.consumed
+            );
+
+          const standaloneColumns =
+            structuralResult.columns.filter(
+              column => !column.consumed
             );
 
           const standaloneImages =
@@ -83,8 +107,16 @@ export async function runAnalysis(
 
           const normalizedAnalyzedObjects =
             normalizeObjects([
+
               ...standaloneSentences,
-              ...compositeResult.boxes
+
+              ...standaloneBoxes,
+
+              ...standaloneRows,
+
+              ...standaloneColumns,
+
+              ...structuralResult.tables
             ]);
 
           return {
@@ -102,14 +134,13 @@ export async function runAnalysis(
               page.height,
 
             content: [
-
               ...standaloneWords,
-
-              ...normalizedAnalyzedObjects,
 
               ...standaloneImages,
 
-              ...standaloneVectors
+              ...standaloneVectors,
+              
+              ...normalizedAnalyzedObjects
             ]
           };
         }

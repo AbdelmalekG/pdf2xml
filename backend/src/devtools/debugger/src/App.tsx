@@ -35,7 +35,13 @@ export default function App() {
     >
       <div
         style={{
-          width: "250%",
+          flex: 1,
+
+          minWidth: 0,
+
+          display: "flex",
+
+          flexDirection: "column",
         }}
       >
         <input
@@ -48,7 +54,15 @@ export default function App() {
         <PageViewer pages={pages} highlightedId={highlightedId} />
       </div>
 
-      <Sidebar pages={pages} onHover={setHighlightedId} />
+      <div
+        style={{
+          width: 320,
+
+          flexShrink: 0,
+        }}
+      >
+        <Sidebar pages={pages} onHover={setHighlightedId} />
+      </div>
     </div>
   );
 }

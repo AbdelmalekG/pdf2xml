@@ -13,7 +13,7 @@ export function normalizeBox(
   return {
 
     id:
-      String(box.id),
+      box.id,
 
     kind:
       "box",

@@ -1,48 +1,44 @@
-import type {
-  RawImageNode,
-  RawWordNode
-} from "../../extractor/atomic";
-
-import type {
-  SentenceNode
-} from "../composite/sentence";
-
-import type {
-  IntersectionNode
-} from "../composite/intersection";
+import {
+  buildRows
+} from "./row";
 
 import {
-  buildBoxes
+  buildColumns
+} from "./column";
+
+import {
+  buildTables
+} from "./table";
+
+import type {
+  BoxNode
 } from "../composite/box";
 
 export function processStructural(
-
-  words:
-    RawWordNode[],
-
-  sentences:
-    SentenceNode[],
-
-  images:
-    RawImageNode[],
-
-  intersections:
-    IntersectionNode[]
-
+  boxes: BoxNode[]
 ) {
 
-  const boxes =
-    buildBoxes(
-      intersections,
-      [
-        ...words,
-        ...images,
-        ...sentences
-      ]
+  const rows =
+    buildRows(
+      boxes
+    );
 
+  const columns =
+    buildColumns(
+      boxes
+    );
+
+  const tables =
+    buildTables(
+
+      rows,
+
+      columns
     );
 
   return {
-    boxes
+    rows,
+    columns,
+    tables
   };
 }

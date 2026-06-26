@@ -1,4 +1,5 @@
 import type {
+  BaseCompositeNode,
   CompositeNodeKind,
 } from "@modules/analyzer/composite";
 
@@ -16,23 +17,22 @@ export type BoxContentNode =
   | RawImageNode
   | SentenceNode;
 
-export interface BoxNode {
+export type BoxNode =
+  BaseCompositeNode & {
 
-  id: string;
+    kind: typeof CompositeNodeKind.box;
 
-  kind: typeof CompositeNodeKind.box;
+    x: number;
+    y: number;
 
-  x: number;
-  y: number;
+    endX: number;
+    endY: number;
 
-  endX: number;
-  endY: number;
+    width: number;
+    height: number;
 
-  width: number;
-  height: number;
-
-  children:
+    children:
     BoxContentNode[];
 
-  page: number;
-}
+    page: number;
+  }

@@ -43,12 +43,13 @@ export function normalizeSentence(
     endY:
       sentence.endY,
 
-    page:
-      sentence.page,
-
     words:
       sentence.words.map(
         normalizeWord
-      )
+      ),
+
+    page:
+      sentence.page,
+
   };
 }

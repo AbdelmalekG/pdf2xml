@@ -1,0 +1,1 @@
+export const TABLE_GAP_TOLERANCE = 2;

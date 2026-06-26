@@ -7,7 +7,10 @@ import type {
 export const AnalyzedObjectKind = {
   sentence: "sentence",
   line: "line",
-  box: "box"
+  box: "box",
+  row: "row",
+  column: "column",
+  table: "table"
 } as const;
 
 export type AnalyzedObjectKind =
@@ -71,12 +74,41 @@ export type Box =
     >;
   };
 
+export type Row =
+  BaseAnalyzedObject & {
+
+    kind: typeof AnalyzedObjectKind.row;
+
+    boxes: Box[];
+  };
+
+export type Column =
+  BaseAnalyzedObject & {
+
+    kind: typeof AnalyzedObjectKind.column;
+
+    boxes: Box[];
+  };
+
+export type Table =
+  BaseAnalyzedObject & {
+
+    kind: typeof AnalyzedObjectKind.table;
+
+    rows: Row[];
+
+    columns: Column[];
+  };
+
 export type AnalyzedObject =
   | ExtractedWord
   | ExtractedVector
   | ExtractedImage
   | Sentence
-  | Box;
+  | Box
+  | Row
+  | Column
+  | Table;
 
 export type AnalyzedPage = {
   id: string;

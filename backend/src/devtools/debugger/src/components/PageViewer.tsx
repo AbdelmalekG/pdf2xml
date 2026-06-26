@@ -28,9 +28,7 @@ export function PageViewer({ pages, highlightedId }: Props) {
   return (
     <div
       style={{
-        width: "100%",
-
-        height: "100%",
+        flex: 1,
 
         overflowX: "auto",
 

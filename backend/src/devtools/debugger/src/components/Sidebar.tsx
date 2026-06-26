@@ -1,5 +1,10 @@
 import type { ExtractedObject } from "../types";
 
+import {
+  getNestedObjects,
+  getObjectName
+ } from "../utils/debugger.utils";
+
 type Props = {
   pages: any[];
 
@@ -15,7 +20,7 @@ function ObjectTree({
   onHover: (id: string | null) => void;
   level?: number;
 }) {
-  const children = [...(object.children ?? []), ...(object.words ?? [])];
+  const children = getNestedObjects(object);
 
   if (children.length === 0) {
     return (
@@ -57,15 +62,12 @@ function ObjectTree({
   );
 }
 
-export function Sidebar({
-  pages,
-  onHover,
-}: Props) {
+export function Sidebar({ pages, onHover }: Props) {
   const allObjects = pages.flatMap((page) => page.content);
 
   const grouped = allObjects.reduce<Record<string, ExtractedObject[]>>(
     (acc, object) => {
-      const key = object.kind ?? "unknown";
+      const key = getObjectName(object.id);
 
       if (!acc[key]) {
         acc[key] = [];
@@ -83,6 +85,8 @@ export function Sidebar({
     <div
       style={{
         width: "100%",
+
+        height: "100%",
 
         overflowX: "auto",
         overflowY: "auto",
