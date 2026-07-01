@@ -7,14 +7,18 @@ import {
 } from "@modules/extractor";
 
 import {
-  analyzeObjects,
-  type AnalyzedDocument
+  analyzeObjects
 } from "@modules/analyzer";
+
+import {
+  mapDocument,
+  type MappedDocument
+} from "@modules/mapper";
 
 export async function pipeline(
   filePath: string,
   mimeType: string
-): Promise<AnalyzedDocument> {
+): Promise<MappedDocument> {
 
   const detected =
     await detectFileType(
@@ -32,5 +36,10 @@ export async function pipeline(
       extracted
     );
 
-  return analyzed;
+  const mapped =
+    await mapDocument(
+      analyzed
+    );
+
+  return mapped;
 }
