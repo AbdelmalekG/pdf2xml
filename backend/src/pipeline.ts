@@ -11,14 +11,17 @@ import {
 } from "@modules/analyzer";
 
 import {
-  mapDocument,
-  type MappedDocument
+  mapDocument
 } from "@modules/mapper";
+
+import {
+  convertDocument
+} from "@modules/converter";
 
 export async function pipeline(
   filePath: string,
   mimeType: string
-): Promise<MappedDocument> {
+): Promise<string> {
 
   const detected =
     await detectFileType(
@@ -41,5 +44,10 @@ export async function pipeline(
       analyzed
     );
 
-  return mapped;
+  const converted =
+    await convertDocument(
+      mapped
+    );
+
+  return converted;
 }

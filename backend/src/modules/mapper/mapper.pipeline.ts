@@ -14,9 +14,11 @@ import {
   mapFooter
 } from "./mappers";
 
+import type { MappedDocument } from "./mapper.types";
+
 export function mapperPipeline(
   document: AnalyzedDocument
-) {
+): MappedDocument {
 
   const rankedDetail =
     scoreTables(
@@ -42,7 +44,9 @@ export function mapperPipeline(
         rankedDetail.table
       ),
 
-    detail,
+    detail: {
+      table: detail
+    },
 
     summary,
 
