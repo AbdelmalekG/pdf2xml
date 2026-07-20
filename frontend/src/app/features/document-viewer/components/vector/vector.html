@@ -1,0 +1,25 @@
+@switch (object().vectorKind) {
+  @case ('line') {
+    <div
+      class="vector-line"
+      [style.left.px]="style().left"
+      [style.top.px]="style().top"
+      [style.width.px]="style().width"
+      [style.height.px]="style().height"
+    ></div>
+  }
+
+  @case ('curve') {
+    <svg
+      class="vector-curve"
+      [style.left.px]="style().left"
+      [style.top.px]="style().top"
+      [style.overflow]="'visible'"
+      [attr.width]="style().width"
+      [attr.height]="style().height"
+      [attr.viewBox]="'0 0 ' + style().width + ' ' + style().height"
+    >
+      <path [attr.d]="path()" fill="none" stroke="red" stroke-width="2" />
+    </svg>
+  }
+}

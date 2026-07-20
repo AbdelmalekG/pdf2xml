@@ -1,0 +1,17 @@
+<div class="upload">
+  <input
+    #fileInput
+    type="file"
+    hidden
+    accept=".pdf,.png,.jpg,.jpeg"
+    (change)="onFileSelected($event)"
+  >
+
+  <button
+    mat-raised-button
+    (click)="fileInput.click()"
+  >
+    Upload Document
+    <mat-icon> upload </mat-icon>
+  </button>
+</div>

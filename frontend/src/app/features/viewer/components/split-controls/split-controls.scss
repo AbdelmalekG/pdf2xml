@@ -1,0 +1,39 @@
+:host {
+
+  position: absolute;
+
+  top: 0;
+
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  z-index: 1000;
+
+  opacity: .3;
+
+  transition: opacity .3s ease-in-out;
+
+}
+
+:host:hover {
+
+  opacity: 1;
+
+}
+
+.controls {
+
+  display: flex;
+
+  align-items: center;
+
+  padding: 4px;
+
+  border-radius: 999px;
+
+  background: white;
+
+  border: .5px solid rgba(0,0,0,.1);
+
+}

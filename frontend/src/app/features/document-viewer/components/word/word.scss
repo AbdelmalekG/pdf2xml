@@ -1,0 +1,16 @@
+:host {
+  position: absolute;
+}
+
+.word {
+  position: absolute;
+  white-space: nowrap;
+  overflow: visible;
+  line-height: 1;
+}
+
+.word.highlighted {
+  background: rgba(0, 221, 255, 0.15);
+  outline: 2px solid #00ddff;
+  z-index: 999;
+}

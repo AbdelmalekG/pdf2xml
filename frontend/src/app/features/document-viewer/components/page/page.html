@@ -1,0 +1,13 @@
+<div
+  class="page"
+  [style.width.px]="page().width"
+  [style.height.px]="page().height">
+
+  @for (object of objects(); track object.id) {
+
+    <app-object
+        [object]="object"
+        [pageHeight]="page().height" />
+
+}
+</div>

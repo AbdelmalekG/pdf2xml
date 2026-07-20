@@ -1,0 +1,19 @@
+<div class="viewer-container">
+  <as-split direction="horizontal">
+    <as-split-area [size]="leftSize">
+      <app-xml-editor class="xml-editor" />
+    </as-split-area>
+
+    <as-split-area [size]="rightSize">
+      <div class="viewer-wrapper">
+        <app-document-viewer class="doc-viewer" />
+      </div>
+    </as-split-area>
+  </as-split>
+
+  <app-split-controls
+    (collapseLeft)="collapseXml()"
+    (collapseRight)="collapseViewer()"
+    (reset)="resetSplit()"
+  />
+</div>

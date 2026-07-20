@@ -7,7 +7,8 @@ import {
 } from "@modules/extractor";
 
 import {
-  analyzeObjects
+  analyzeObjects,
+  type AnalyzedDocument
 } from "@modules/analyzer";
 
 import {
@@ -18,10 +19,17 @@ import {
   convertDocument
 } from "@modules/converter";
 
+export type PipelineResult = {
+
+  analyzed: AnalyzedDocument;
+
+  converted: string;
+};
+
 export async function pipeline(
   filePath: string,
   mimeType: string
-): Promise<string> {
+): Promise<PipelineResult> {
 
   const detected =
     await detectFileType(
@@ -49,5 +57,8 @@ export async function pipeline(
       mapped
     );
 
-  return converted;
+  return {
+    analyzed,
+    converted
+  };
 }

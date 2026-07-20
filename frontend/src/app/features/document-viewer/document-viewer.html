@@ -1,0 +1,15 @@
+@if (document.document(); as document) {
+  @for (
+    page of document.pages;
+    track page.id
+  ) {
+    <app-page
+      [page]="page" />
+  }
+}
+
+@else {
+  <div class="placeholder">
+    Upload a document and it will be previewed here.
+  </div>
+}

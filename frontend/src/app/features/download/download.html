@@ -1,0 +1,10 @@
+<div class="download">
+  <button
+    mat-flat-button
+    [disabled]="!hasDocument()"
+    (click)="download()"
+  >
+    Download XML
+  <mat-icon> download </mat-icon>
+  </button>
+</div>
