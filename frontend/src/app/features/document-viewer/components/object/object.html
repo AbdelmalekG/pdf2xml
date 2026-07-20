@@ -1,0 +1,30 @@
+<app-bounds
+  [style]="style()"
+  [highlighted]="highlighted()" />
+
+@switch (object().kind) {
+
+  @case ("word") {
+    <app-word
+      [object]="object()"
+      [style]="style()"
+      [pageHeight]="pageHeight()"
+      [highlighted]="highlighted()" />
+  }
+
+  @case ("image") {
+    <app-image
+      [object]="object()"
+      [style]="style()"
+      [pageHeight]="pageHeight()"
+      [highlighted]="highlighted()" />
+  }
+
+  @case ("vector") {
+    <app-vector
+      [object]="object()"
+      [style]="style()"
+      [pageHeight]="pageHeight()"
+      [highlighted]="highlighted()" />
+  }
+}

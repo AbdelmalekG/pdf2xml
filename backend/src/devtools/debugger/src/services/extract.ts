@@ -15,7 +15,7 @@ export async function extract(
   const response =
     await axios.post(
 
-      "http://localhost:3000/api/extract",
+      "http://localhost:3000/api/dev/extract",
 
       formData,
 

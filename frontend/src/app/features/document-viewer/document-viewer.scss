@@ -1,0 +1,23 @@
+:host {
+    display: block;
+    
+    width: 100%;
+
+    height: 100%;
+
+    overflow: auto;
+}
+
+.placeholder {
+
+  height: 100%;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  color: #888;
+
+}

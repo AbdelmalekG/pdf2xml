@@ -15,7 +15,7 @@ export async function analyze(
   const response =
     await axios.post(
 
-      "http://localhost:3000/api/analyze",
+      "http://localhost:3000/api/dev/analyze",
 
       formData,
 
