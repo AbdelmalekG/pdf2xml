@@ -1,0 +1,17 @@
+:host {
+  display: block;
+}
+
+.page {
+  position: relative;
+
+  margin: 24px auto;
+
+  background: white;
+
+  border: 1px solid #ccc;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,.12);
+
+  overflow: hidden;
+}

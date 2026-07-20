@@ -1,0 +1,13 @@
+:host {
+  position: absolute;
+}
+
+.bounds {
+  position: absolute;
+
+  box-sizing: border-box;
+
+  outline: 2px solid #00ddff;
+
+  pointer-events: none;
+}
